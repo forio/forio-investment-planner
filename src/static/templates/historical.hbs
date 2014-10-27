@@ -1,0 +1,35 @@
+<div class="row">
+    <h4>Historical Data</h4>
+</div>
+<div class="row historical-chart-holder">
+    <table class="table">
+        <thead>
+            <tr class="names-head">
+                <th class="headcol"></th>
+                {{#each this}}
+                    <td>{{name}}</td>
+                {{/each}}
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>History</th>
+                {{#each this}}
+                    <td>
+                        <div 
+                            class="history-bar" data-name="{{name}}">
+                        </div>
+                    </td>
+                {{/each}}
+            </tr>
+            <tr>
+                <th>Average</th>
+                {{#each this}}
+                    <td>
+                        {{average}}
+                    </td>
+                {{/each}}
+            </tr>
+        </tbody>
+    </table>
+</div>

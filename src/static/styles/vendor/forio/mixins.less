@@ -1,0 +1,47 @@
+
+.mono-font(@size:13px) {
+
+    font-family: "Consolas", "Monaco", monospace;
+    font-size: @size;
+}
+
+.sans-serif(@size:16px) {
+    font-family: "Helvetica Neue", arial, sans-serif;
+    font-size: @size;
+}
+
+.make-series-colors(@namespace, @colorList) {
+
+    .make-color(@index, @list) when (@index < 9) {
+        @{list} {
+            @color-def: extract(@colorList, @index);
+            color: extract(@colorList, @index);
+            stroke: @color-def;
+            fill: @color-def;
+
+            &.line, .line {
+                stroke-width: @data-line-width;
+                fill: none;
+            }
+
+            &.contour-legend-key {
+                background-color: @color-def;
+            }
+
+            &.dot, .dot {
+                stroke-dasharray: none;
+            }
+        }
+    }
+
+    .make-color(1, ~'@{namespace}.s-1');
+    .make-color(2, ~'@{namespace}.s-2');
+    .make-color(3, ~'@{namespace}.s-3');
+    .make-color(4, ~'@{namespace}.s-4');
+    .make-color(5, ~'@{namespace}.s-5');
+    .make-color(6, ~'@{namespace}.s-6');
+    .make-color(7, ~'@{namespace}.s-7');
+    .make-color(8, ~'@{namespace}.s-8');
+
+}
+

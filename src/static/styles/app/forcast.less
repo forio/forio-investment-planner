@@ -1,0 +1,21 @@
+.return-forcast {
+    g[vis-id="1"] {
+        .series {
+            stroke: @graph-color;
+            fill: none;
+            opacity: 0.4;
+            path {
+                stroke-width: 1px;
+            }
+        }
+        // path {
+        //     stroke: 5px;
+        // }
+    }
+    g[vis-id="2"] {
+        path {
+            stroke-width: 5px;
+            stroke: @highlight-color;
+        }
+    }
+}

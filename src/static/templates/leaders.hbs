@@ -1,0 +1,18 @@
+<h3>Last 10 Players</h3>
+
+<div class="leaders-table">
+    <div class="row">
+        <div class="col-xs-6 name">
+            Name
+        </div>
+        <div class="col-xs-3 chance-of-loss">
+            Chance of Loss
+        </div>
+        <div class="col-xs-3 average-after-five">
+            Average Value after 5 years
+        </div>
+    </div>
+    {{#each players}}
+        {{> 'player-list-item' this}}
+    {{/each}}
+</div>

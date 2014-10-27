@@ -1,0 +1,29 @@
+.bar-slider {
+    height: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+    .draggable {
+        height: 100%;
+        display: inline-block;
+        background-color: red;
+        position: relative;
+        margin-left: -4px;
+        i {
+            position: absolute;
+            margin-left: -7px;
+            left: 100%;
+            z-index: 1;
+            top: 2px;
+            opacity: 0.3;
+            cursor: pointer;
+        }
+    }
+
+    .draggable:last-of-type {
+        i {
+            display: none;
+        }
+    }
+}
+

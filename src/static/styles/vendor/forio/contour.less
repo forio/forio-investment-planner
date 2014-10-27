@@ -1,0 +1,162 @@
+@import 'mixins.less';
+
+.chart-container {
+    position: relative;
+}
+
+// these need to be outside of the contour-chart scope for the mixins to work
+// we need to figure out a better way to scope this variables
+@palette1: #2477b3 #008C48 #EE2E2F #F47D23 #662C91 #A21D21 #B43894 #010202;
+@palette2: #5A9BD4 #7AC36A #F15A60 #FAA75B #9E67AB #CE7058 #D77FB4 #737373;
+@palette3: #B8D2EC #D9E4AA #F2AFAD #F3D1B0 #D5B2D4 #DDB9A9 #EBC0DA #CCCCCC;
+@palette4: #C76C16 #006550 #942300 #5B4C00 #E1B79A #6F8E3B #8ACCC0 #010202;
+@palette5: #363694 #7272B4 #8686BF #9A9AC9 #AFAFD4 #C2C2DF #D7D7EA #EBEBF4; //#EBEBF4 #D7D7EA #C2C2DF #AFAFD4 #9A9AC9 #8686BF #7272B4 #363694;
+@palette6: #EEECE1 #4F81BD #C0504D #9BBB59 #8064A2 #4BACC6 #F79646 #1F497D;
+
+@data-line-width: 2px;
+@leged-font-size: 13px;
+
+@tooltip-background-color: #555;
+@tooltip-border-color: transparent;
+@tooltip-text-color: #fff;
+
+.contour-chart {
+
+    @contour-text-color: #666;
+    @axis-line-color: #666;
+    @data-line-color: #f47a5f; //#73acdb;
+    @data-line-marker-color: @data-line-color;
+    @data-bar-color: steelblue; //@data-line-color;
+
+    @axis-title-font-size: 14px;
+
+    position: relative;
+
+
+    .plot-area-background {
+        fill: none;
+        stroke: none;
+    }
+
+    .axis {
+        stroke: @axis-line-color;
+        stroke-width: 1px;
+        fill: none;
+        shape-rendering: crispEdges;
+        .mono-font();
+        -webkit-user-select: none;  /* Chrome all / Safari all */
+        -moz-user-select: none;     /* Firefox all */
+        -ms-user-select: none;      /* IE 10+ */
+        user-select: none;
+
+        text {
+            stroke: none;
+            fill: @contour-text-color;
+        }
+
+
+        &.x .tick,
+        &.y .tick {
+            stroke: @axis-line-color;
+        }
+    }
+
+    .axis-title {
+        .mono-font(@axis-title-font-size);
+        line-height: 100%;
+        stroke: none;
+        fill: @contour-text-color;
+    }
+
+    .grid-line {
+        stroke: #cfcfcf;
+    }
+
+    .trend-line {
+        stroke-width: 1px;
+        stroke: #05f;
+    }
+
+    .legend-wrapper {
+        position: relative;
+        pointer-events: none;
+
+        body {
+            position: relative;
+        }
+    }
+}
+
+.contour-legend {
+    position: absolute;
+    border: solid 1px #bbb;
+    margin: 5px;
+    padding: 0 5px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    .mono-font();
+    font-size: @leged-font-size;
+
+
+    .contour-legend-key {
+        display: inline-block;
+        width: .9em;
+        height: .9em;
+        border-radius: 1px;
+        margin-right: 5px;
+        margin-bottom: -.1em;
+    }
+
+    .contour-legend-entry {
+        display: inline-block;
+        line-height: 1.5em;
+        margin: 0 .4em;
+    }
+
+    &.vertical {
+        .contour-legend-entry {
+            display: block;
+            margin: .2em .2em;
+        }
+    }
+}
+
+.cool {
+    stroke: #000;
+    stroke-width: 0;
+    fill: #4c94ff;
+}
+
+.nw-tooltip {
+    position: absolute;
+    text-align: left;
+    min-width: 1.5em;
+    min-height: 1em;
+    padding: 4px 8px;
+    font: 10px sans-serif;
+    line-height: 16px;
+    background: @tooltip-background-color;
+    border: solid 1px @tooltip-border-color;
+    border-radius: 8px;
+    pointer-events: none;
+    transition: all .05s ease-out;
+    .text {
+        opacity: 1;
+        color: @tooltip-text-color;
+    }
+}
+
+.stack-tooltip {
+    .mono-font();
+    span {
+        white-space: nowrap;
+    }
+}
+
+.make-series-colors('', @palette1);
+.make-series-colors('.palette-1', @palette1);
+.make-series-colors('.palette-2', @palette2);
+.make-series-colors('.palette-3', @palette3);
+.make-series-colors('.palette-4', @palette4);
+.make-series-colors('.palette-5', @palette5);
+.make-series-colors('.palette-6', @palette6);
