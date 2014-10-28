@@ -34,11 +34,11 @@ class Portfolio(object):
         self._returns = []
         self.average_returns = 0.0
 
-        self.cash_equivalents = 1.0
-
         self.failure_percent = 0.0
 
         self.correlation = self.calculate_correlation()
+
+        self.calculate()
 
     def calculate_correlation(self):
         """Calculate the correlation between historic data in each sector
@@ -120,11 +120,11 @@ class Portfolio(object):
         self.scenario_returns += 1.0
 
         # Aggregate the returns into running returns for the graphs
-        self._returns = np.zeros(self.rands.shape)
-        self._returns[:, 0] = 100.0*self.scenario_returns[:, 0]
-        for j in range(1, 5):
+        self._returns = self.initial * np.ones((self.rands.shape[0],
+                                               self.rands.shape[1] + 1))
+        for j in range(1, 6):
             self._returns[:, j] = (self._returns[:, j - 1] *
-                                  self.scenario_returns[:, j])
+                                   self.scenario_returns[:, j - 1])
 
         # Calculate metrics for the UI
         self.average_returns = self._returns[:, 4].mean()
