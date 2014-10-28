@@ -22,16 +22,16 @@ class Portfolio(object):
         self._historic = np.genfromtxt('historic_data.csv', delimiter='\t')
         self.rands = np.genfromtxt('rand_by_year.csv', delimiter='\t',
                                    dtype=int) - 1
-        self._global_bonds = 0.0
-        self._global_real_estate = 0.0
-        self._us_stocks = 0.0
-        self._emerging_markets = 0.0
-        self._cash_equivalents = 1.0
+        self._global_bonds = 0.15
+        self._global_real_estate = 0.15
+        self._us_stocks = 0.15
+        self._emerging_markets = 0.15
+        self._cash_equivalents = 0.40
 
         self.initial = 100.0
         self.loss_threshold = 5.0
         self.average_returns = 0.0
-        self.returns = []
+        self._returns = []
         self.average_returns = 0.0
 
         self.cash_equivalents = 1.0
@@ -101,6 +101,10 @@ class Portfolio(object):
     def historic(self):
         return self._historic.tolist()
 
+    @property
+    def returns(self):
+        return self._returns[:50]
+
     def calculate(self):
         """Calculate all of the returns
         """
@@ -116,20 +120,20 @@ class Portfolio(object):
         self.scenario_returns += 1.0
 
         # Aggregate the returns into running returns for the graphs
-        self.returns = np.zeros(self.rands.shape)
-        self.returns[:, 0] = 100.0*self.scenario_returns[:, 0]
+        self._returns = np.zeros(self.rands.shape)
+        self._returns[:, 0] = 100.0*self.scenario_returns[:, 0]
         for j in range(1, 5):
-            self.returns[:, j] = (self.returns[:, j - 1] *
+            self._returns[:, j] = (self._returns[:, j - 1] *
                                   self.scenario_returns[:, j])
 
         # Calculate metrics for the UI
-        self.average_returns = self.returns[:, 4].mean()
-        self.returns = self.returns.tolist()
+        self.average_returns = self._returns[:, 4].mean()
+        self._returns = self._returns.tolist()
         self._calculate_failures()
 
     def _calculate_failures(self):
         threshold = self.initial - self.loss_threshold
-        total_under = float(sum([x[4] < threshold for x in self.returns]))
+        total_under = float(sum([x[4] < threshold for x in self._returns]))
         self.failure_percent = total_under / self.rands.shape[0]
 
     @property
