@@ -71,12 +71,47 @@ module.exports = BaseModel.extend({
 
     getReturns: function (callBack) {
         var that = this;
-        Net.get( this.run.id + '/variables', 'include=portfolio.returns', { 
+        Net.get( this.run.id + '/variables', 'include=portfolio.returns,portfolio.average_returns,portfolio.failure_percent', { 
             success: function (data) {
                 that.transformSet(data);
+                that.calculateSpread();
                 callBack()
             } 
         });
+    },
+
+    bucketSize: 40,
+
+    buckets: 10,
+
+    bucketStart: 40,
+
+    calculateSpread: function () {
+        var valuesFinalIndex = this.get('returns')[0].length - 1;
+        var finalValues = _.map(this.get('returns'), function (forcast) {
+            return forcast[valuesFinalIndex];
+        }).sort(function(a,b) {return a - b; });
+
+        var bucketData = [];
+        var bucketCount = 0;
+        var bucketI = 0;
+        for ( var i = 0, l = finalValues.length; i < l; i++) {
+            if (finalValues[i] < (this.bucketStart + this.bucketSize * (bucketI + 1))) {
+                bucketCount ++;
+            } else {
+                bucketData.push(bucketCount);
+                bucketCount = 1;
+                bucketI++;
+            }
+        }
+
+        while ( bucketI < this.buckets ) {
+            bucketData.push(bucketCount);
+            bucketCount = 0;
+            bucketI++;
+        }
+
+        this.set('bucketData', bucketData);
     },
 
     transformSet: function (json) {
@@ -94,6 +129,22 @@ module.exports = BaseModel.extend({
                 callBack()
             } 
         });
+    },
+
+    recalculate: function (callBack) {
+        var that = this;
+
+        var data = {};
+
+        _.each(this.proportions, function (proportion) {
+            data['portfolio.' + proportion] = that.get(proportion);
+        });
+
+        Net.patch( this.run.id + '/variables', data, {
+            success: function () {
+                that.getReturns(callBack);
+            }
+        } );
     },
 
     url: function() {

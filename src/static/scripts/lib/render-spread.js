@@ -1,7 +1,7 @@
-module.exports = function () {
-    var data = [1, 28, 60, 50, 40, 35, 23, 11, 5, 1];
+module.exports = function (buckedData, chance) {
+    var data = buckedData;
 
-    this.renderChancePie();
+    this.renderChancePie(chance);
 
     var tickValues = []
     var resultsSpread = new Contour({

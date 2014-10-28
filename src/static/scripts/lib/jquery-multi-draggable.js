@@ -10,12 +10,17 @@
         return $icon;
     }
 
-    var normalize = function  (newValue, newNeighborValue) {
-        if (newValue < 0.0015) {
-            newNeighborValue += newValue;
-            newValue = 0;
+    var normalize = function  (opt) {
+        if (opt.newValue < 0.0015) {
+            opt.newNeighborValue += opt.newValue;
+            opt.newValue = 0;
         }
+
+        opt.item.data('value', opt.newValue);
+        opt.neighbor.data('value', opt.newNeighborValue );
+        opt.item.trigger('slideUpdate');
     }
+
     $.fn.multiDraggable = function () {
 
         var that = this;
@@ -42,6 +47,7 @@
 
                     var newWidth;
                     var newValue;
+                    var newValueAdjust;
                     var newNeighborValue;
                     var newNeighborWidth;
                     $(document).on('mousemove', function (e) {
@@ -52,13 +58,12 @@
                             $neighbor.width(newNeighborWidth);
                             newValue = newWidth / totalWidth;
                             newNeighborValue = newNeighborWidth / totalWidth;
-                            normalize(newValue, newNeighborValue);
-
-                            $item.data('value', newValue);
-                            $item.trigger('slideUpdate');
-                            $neighbor.data('value', newNeighborValue);
-                        } else {
-                            console.log('out');
+                            normalize({
+                                newValue: newValue, 
+                                newNeighborValue: newNeighborValue,
+                                item: $item,
+                                neighbor: $neighbor
+                            });
                         }
                     });
 
@@ -84,34 +89,6 @@
 
             widthSet();
         });
-
-
-        //     var group = $input.data('group');
-
-        //     var neighbors = $('[data-group="' + group + '"]');
-
-        //     var calculateMax = function () {
-        //         // calulate
-
-        //         var max = _.max(neighbors, function (input) {
-        //             return $(input).val();
-        //         });
-
-        //         max = $(max).val();
-
-        //         _.each(neighbors, function (input) {
-        //             var  percent = 100 * ($(input).val() / max);
-
-        //             console.log(percent,max);
-
-        //             $(this).data('percentage', percent);
-        //         })
-        //     };
-
-        //     $input.on('change', function () {
-        //         calculateMax();
-        //     });
-        // });
     };
 
 })(window.$);

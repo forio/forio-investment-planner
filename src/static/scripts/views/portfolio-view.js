@@ -41,9 +41,11 @@ module.exports = BaseView.extend({
             this.model.set($drag.data('variable'), $drag.data('value'));
         }, this);
 
+        this.model.recalculate(this.renderCharts.bind(this));
+
         this.renderInputs();
-        this.renderCharts();
-    }, 20),
+        // this.renderCharts();
+    }, 80),
 
     updateFromInput: function (e) {
         var $input = $(e.currentTarget);
@@ -53,6 +55,8 @@ module.exports = BaseView.extend({
     
     initialize: function (opts) {
         this.model = opts.model;
+
+        // this.listenTo()
         // this.listenTo(this.model, 'change', this.modelChanged);
     },
 
@@ -79,8 +83,9 @@ module.exports = BaseView.extend({
     renderCharts: _.throttle(function () {
         this.$('.charts').html(this.chartsTemplate());
         this.renderForcast(this.model.get('returns'));
-        this.average = Math.random() * 340 + 40;
-        this.renderSpread();
+        this.average = this.model.get('average_returns');
+
+        this.renderSpread(this.model.get('bucketData'), this.model.get('failure_percent'));
     }, 2040),
 
     afterRender: function () {

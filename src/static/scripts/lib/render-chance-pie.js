@@ -1,6 +1,6 @@
-module.exports = function () {
+module.exports = function (chance) {
 
-    var chancePer = 0.33;
+    var chancePer = chance;
 
     var  pieTopPadding = 30;
 

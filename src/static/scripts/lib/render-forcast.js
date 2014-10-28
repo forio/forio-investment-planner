@@ -84,7 +84,7 @@ module.exports = function (data) {
     
 
     forcast.line(data);
-    forcast.line(avg);
+    // forcast.line(avg);
 
     forcast.render();
 };
