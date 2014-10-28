@@ -78,7 +78,7 @@ module.exports = BaseView.extend({
 
     renderCharts: _.throttle(function () {
         this.$('.charts').html(this.chartsTemplate());
-        this.renderForcast(this.model.get('portfolio.returns'));
+        this.renderForcast(this.model.get('returns'));
         this.average = Math.random() * 340 + 40;
         this.renderSpread();
     }, 2040),

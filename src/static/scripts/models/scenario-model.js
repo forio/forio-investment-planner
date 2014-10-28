@@ -16,43 +16,40 @@ module.exports = BaseModel.extend({
         this.createManager(opts);
     },
 
-    defaults: function () {
-        return {
-            us: 0.12,
-            emerging: 0.28,
-            bonds: 0.264,
-            realEstate: 0.218,
-            cash: 0.118
-        };
-    },
-
+    proportions: [
+        'us_stocks',
+        'emerging_markets',
+        'global_bonds',
+        'global_real_estate',
+        'cash_equivalents'
+    ],
 
     toggleInputs: function () {
         return [
             {
                 name: 'US Stocks',
-                value: this.get('us'),
-                variable: 'us'
+                value: this.get('us_stocks'),
+                variable: 'us_stocks'
             },
             {
                 name: 'Emerging Markets',
-                value: this.get('emerging'),
-                variable: 'emerging'
+                value: this.get('emerging_markets'),
+                variable: 'emerging_markets'
             },
             {
                 name: 'Global Bonds',
-                value: this.get('bonds'),
-                variable: 'bonds'
+                value: this.get('global_bonds'),
+                variable: 'global_bonds'
             },
             {
                 name: 'Global Reas Estate',
-                value: this.get('realEstate'),
-                variable: 'realEstate'
+                value: this.get('global_real_estate'),
+                variable: 'global_real_estate'
             },
             {
                 name: 'Cash Equivalents',
-                value: this.get('cash'),
-                variable: 'cash'
+                value: this.get('cash_equivalents'),
+                variable: 'cash_equivalents'
             }];
     },
 
@@ -76,7 +73,24 @@ module.exports = BaseModel.extend({
         var that = this;
         Net.get( this.run.id + '/variables', 'include=portfolio.returns', { 
             success: function (data) {
-                that.set(data);
+                that.transformSet(data);
+                callBack()
+            } 
+        });
+    },
+
+    transformSet: function (json) {
+        var that = this;
+        _.each(json, function (value, key) {
+            that.set(key.replace('portfolio.', ''), value);
+        });
+    },
+
+    getProportions: function (callBack) {
+        var that = this;
+        Net.get( this.run.id + '/variables', 'include=' + _.map(this.proportions, function(item){ return 'portfolio.' + item;}).join(','), { 
+            success: function (data) {
+                that.transformSet(data);
                 callBack()
             } 
         });
@@ -109,7 +123,9 @@ module.exports = BaseModel.extend({
         this.set(run);
         this.name = run.name;
         this.run.name = run.name || this.name;
-        this.getReturns(callBack)
+        callBack = _.after(2, callBack);
+        this.getReturns(callBack);
+        this.getProportions(callBack);
         // if (callBack) {
         //     callBack(run);
         // }
