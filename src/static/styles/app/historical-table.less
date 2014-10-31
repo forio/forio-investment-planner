@@ -1,12 +1,12 @@
 .historical-chart-holder {
     td {
-        width: 100px;
+        width: 70px;
         text-align: center;
-
+        vertical-align: middle !important;
         margin: 0;
         // white-space: nowrap;
         border: none;
-        max-width: 100px;
+        max-width: 70px;
     }
 
     .history-bar {
@@ -20,5 +20,17 @@
         path {
             stroke: none;
         }
+    }
+
+    .history-plot {
+        .tick {
+            stroke: none !important;
+            opacity: 0 !important;
+        }
+    }
+
+    .table {
+        width: 70%;
+        margin-left: 5%;
     }
 }

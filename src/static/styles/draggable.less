@@ -3,6 +3,14 @@
     margin-bottom: 20px;
     margin-top: 20px;
 
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
     .draggable {
         height: 100%;
         display: inline-block;
@@ -17,6 +25,15 @@
             top: 2px;
             opacity: 0.3;
             cursor: pointer;
+        }
+        img {
+            height: 90%;
+            position: absolute;
+            left: 2px;
+            margin-top: 1%;
+        }
+        img.before {
+            left: -5px;
         }
     }
 

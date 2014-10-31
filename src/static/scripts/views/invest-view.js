@@ -15,16 +15,31 @@ module.exports = BaseView.extend({
     model: new Backbone.Model(),
 
     events: {
-        'click #run-scenario':'runScenario'
+        'click #run-scenario':'runScenario',
+        'change #scenario-name': 'updateName'
     },
 
+    updateName: _.throttle(function () {
+        var name = $('#scenario-name').val();
+        this.model.run.name = name;
+        this.model.setName();
+    }, 100),
+
     runScenario: function () {
-        Backbone.history.navigate('leaderboard', {trigger: true});
+
+        this.model.simulate({
+            success: function () {
+                Backbone.history.navigate('leaderboard', {trigger: true});
+            },
+            error: function (xhr, error, msg) {
+                var x;
+            }
+        });
     },
 
     initialize: function (opts) {
         this.portfolioView = new PortfolioView(opts);
-        this.historicalView = new HistoricalView();
+        this.historicalView = new HistoricalView(opts);
         this.model = opts.model;
 
         return this;

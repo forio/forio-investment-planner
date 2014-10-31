@@ -24,6 +24,14 @@ module.exports = BaseModel.extend({
         'cash_equivalents'
     ],
 
+    inputLabels: [
+        'US Stocks',
+        'Emerging Markets',
+        'Global Bonds',
+        'Global Real Estate',
+        'Cash Equivalents'
+    ],
+
     toggleInputs: function () {
         return [
             {
@@ -71,7 +79,7 @@ module.exports = BaseModel.extend({
 
     getReturns: function (callBack) {
         var that = this;
-        Net.get( this.run.id + '/variables', 'include=portfolio.returns,portfolio.average_returns,portfolio.failure_percent', { 
+        Net.get( this.run.id + '/variables', 'include=portfolio.returns', { 
             success: function (data) {
                 that.transformSet(data);
                 that.calculateSpread();
@@ -82,9 +90,13 @@ module.exports = BaseModel.extend({
 
     bucketSize: 40,
 
-    buckets: 10,
+    buckets: 6,
 
     bucketStart: 40,
+
+    getTotalValue: function () {
+        return this.buckets * this.bucketSize; // + this.bucketStart;
+    },
 
     calculateSpread: function () {
         var valuesFinalIndex = this.get('returns')[0].length - 1;
@@ -131,6 +143,16 @@ module.exports = BaseModel.extend({
         });
     },
 
+    getHistorics: function (callBack) {
+        var that = this;
+        Net.get( this.run.id + '/variables', 'include=portfolio.historic,portfolio.correlation', { 
+            success: function (data) {
+                that.transformSet(data);
+                callBack()
+            } 
+        });
+    },
+
     recalculate: function (callBack) {
         var that = this;
 
@@ -140,9 +162,12 @@ module.exports = BaseModel.extend({
             data['portfolio.' + proportion] = that.get(proportion);
         });
 
+        callBack = _.after(2, callBack);
+
         Net.patch( this.run.id + '/variables', data, {
             success: function () {
                 that.getReturns(callBack);
+                that.getScoreMetrics(callBack);
             }
         } );
     },
@@ -157,14 +182,30 @@ module.exports = BaseModel.extend({
         var that = this;
         this.basedOn = opts.basedOn;
 
-        return this.getRun(opts.success);
+        return this.getRun(function () {
+            that.getHistorics(opts.success);
+        });
     },
 
     getRun: function (callBack) {
         var that = this;
 
         return this.manager.getRun().then(function (run) {
-            that.setupRun(run, callBack);
+            that.setupRun(run);
+            callBack = _.after(3, callBack);
+            that.getReturns(callBack);
+            that.getScoreMetrics(callBack);
+            that.getProportions(callBack);
+        });
+    },
+
+    getScoreMetrics: function (callBack) {
+        var that = this;
+        Net.get( this.run.id + '/variables', 'include=portfolio.average_returns,portfolio.failure_percent', { 
+            success: function (data) {
+                that.transformSet(data);
+                callBack()
+            } 
         });
     },
 
@@ -174,29 +215,13 @@ module.exports = BaseModel.extend({
         this.set(run);
         this.name = run.name;
         this.run.name = run.name || this.name;
-        callBack = _.after(2, callBack);
-        this.getReturns(callBack);
-        this.getProportions(callBack);
-        // if (callBack) {
-        //     callBack(run);
-        // }
     },
 
     simulate: function (opts) {
-        opts = opts || {};
-        var that = this;
         this.setName();
-        this.runService.do('start_game').then( function () {
-            that.runService.do('step', [8]).then( function () {
-                that.fetchAll({
-                    success: function () {
-                        that.runService.save({ saved: !GLOBALS.isDemo, selected: false}, {filter: that.run.id});
-                        App.scenarios.add(that);
-                        opts.success();
-                    }
-                });
-            });
-        });
+        this.runService.save({ saved: true, initialized: true }, {filter: this.run.id});
+        App.scenarios.add(this);
+        opts.success();
     },
 
     setName: function () {

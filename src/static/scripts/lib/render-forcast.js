@@ -1,38 +1,14 @@
 module.exports = function (data) {
-    data = data || [
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120],
-        [100, 122 + (Math.random() * 80) - 40, 88 + (Math.random() * 100) - 50, 170 + (Math.random() * 120) - 60, 170 + (Math.random() * 160) - 80, 220 + (Math.random() * 240) - 120]
-        ];
+    
 
-    data = _.sample( data, 30);
+    var avg = [];
+    var forcastsLength = data.length;
+    var sum;
+    for (var i = 0, l = data[0].length; i < l; i++) {
+        sum = _.reduce(data, function(memo, forcast){ return memo + forcast[i]; }, 0);
+        avg.push(sum / forcastsLength);
+    }
 
-    var avg = [100,122,133,166,188];
-
-    // we create a Contour instance
     var forcast = new Contour({
         el: '.return-forcast',
         chart: {
@@ -76,15 +52,10 @@ module.exports = function (data) {
             }
         }
     })
-    // adding a cartesian frame to the instance gives use an X and Y axis
-    // and provide scaling service for the visualizations
     .cartesian();
-    // we now add a line visualization to the instance
-    // and we pass in the data we want to use
-    
 
     forcast.line(data);
-    // forcast.line(avg);
+    forcast.line(avg);
 
     forcast.render();
 };

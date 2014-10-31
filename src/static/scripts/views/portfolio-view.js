@@ -80,13 +80,13 @@ module.exports = BaseView.extend({
         }));
     },
 
-    renderCharts: _.throttle(function () {
+    renderCharts: function () {
         this.$('.charts').html(this.chartsTemplate());
         this.renderForcast(this.model.get('returns'));
         this.average = this.model.get('average_returns');
 
-        this.renderSpread(this.model.get('bucketData'), this.model.get('failure_percent'));
-    }, 2040),
+        this.renderSpread(this.model.get('bucketData'), this.model.get('failure_percent'), this.model.getTotalValue());
+    },
 
     afterRender: function () {
         this.draggables = this.$('.draggable').multiDraggable();

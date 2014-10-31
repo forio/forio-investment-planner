@@ -12,15 +12,31 @@ module.exports = BaseView.extend({
 
     replayTemplate: templates['replay'],
 
-    initialize: function () {
-        this.resultView = new ResultView();
-        this.leadersView = new LeadersView();
+    initialize: function (opts) {
+        this.model = opts.model || App.scenarios.at(0);
+
+        App.scenarios.setSelected(this.model);
+        this.resultView = new ResultView({
+            model: this.model
+        });
+        this.leadersView = new LeadersView(opts);
+
+        var that = this;
+        this.listenTo(App.scenarios,'changeSelected', function () {
+            that.leadersView.render();
+            that.resultView.setModel(App.scenarios.getSelected());
+        });
 
         return this;
     },
 
     events: {
-        'click #replay-button':'restartScenario'
+        'click #replay-button':'restartScenario',
+        'click .leaders-table row': 'selectRun'
+    },
+
+    selectRun: function (e) {
+        var model = App.scenarios.get($(e.currentTarget).data('cid'));
     },
 
     restartScenario: function () {

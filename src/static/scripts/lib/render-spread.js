@@ -1,4 +1,4 @@
-module.exports = function (buckedData, chance) {
+module.exports = function (buckedData, chance, totalValue) {
     var data = buckedData;
 
     this.renderChancePie(chance);
@@ -40,7 +40,8 @@ module.exports = function (buckedData, chance) {
     resultsSpread.render();
 
     resultsSpread.adjustVertical(data, {
-        average: this.average
+        average: this.average,
+        totalValue: totalValue
     });
 
     resultsSpread.render();

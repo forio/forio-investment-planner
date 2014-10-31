@@ -5,7 +5,7 @@ var curProject = 'forio-investment-planner';
 var model = 'portfolio.py';
 var proto = /http(s)?/.test(window.location.protocol) ? window.location.protocol : 'https:';
 proto = 'https:';
-var host = window.location.host.match('localhost') ? proto + '//api.forio.com' : proto + '//api.' + window.location.host;
+var host = window.location.host.match('local.forio') ? proto + '//api.forio.com' : proto + '//api.' + window.location.host;
 
 if(parts[1] === 'app') {
     curAccount = parts[2];

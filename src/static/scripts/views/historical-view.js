@@ -10,13 +10,12 @@ var HistoricalCollection = require('collections/historical-collection');
 
 module.exports = BaseView.extend({
 
-    historicalData: historicalData,
-
     collection: new HistoricalCollection(historicalData),
 
     template: templates['historical'],
 
-    initialize: function () {
+    initialize: function (opts) {
+        this.model = opts.model;
         _.each(this.historicalData, function (item) {
             item.average = d3.format('%.2f')(item.average);
         });
@@ -25,11 +24,34 @@ module.exports = BaseView.extend({
     },
 
     render: function  () {
-        this.$el.html(this.template(this.collection.toJSON()));
+        this.$el.html(this.template({
+            historicalData: this.historicalData(),
+            correlation: this.model.get('correlation'),
+            historic: this.model.get('historic')
+        }));
 
 
 
         return this;
+    },
+
+    historicalData: function () {
+        var historicalData = [];
+        var historicalValues;
+        var average;
+        _.each(this.model.inputLabels, function (label, index) {
+            historicalValues = this.model.get('historic')[index];
+            average = _.reduce( historicalValues, function ( memo, num) { 
+                return memo + num;
+            }, 0) / historicalValues.length;
+            historicalData.push({
+                name: label,
+                historicalValues: historicalValues,
+                average: d3.format('%.2f')(average)
+            })
+        }, this);
+
+        return historicalData;
     },
 
     afterRender: function () {
@@ -37,22 +59,65 @@ module.exports = BaseView.extend({
         var $bar;
         _.each(this.$('.history-bar'), function (bar, index) {
             $bar = $(bar);
-            this.renderHistoryBars($bar.data('name'), this.historicalData[index].historicalValues)
+            this.renderHistoryBars($bar.data('name'), this.historicalData()[index].historicalValues)
         }, this);
 
         var $plot;
-        _.each(this.$('.scatter-plot'), function (plot) {
+        _.each(this.$('.history-plot'), function (plot) {
             $plot = $(plot);
+            this.renderHistoryPlot($plot.data('x'), $plot.data('y'));
+        }, this);
+    },
 
+    renderHistoryPlot: function (x, y) {
 
-        });
+        var data = [];
+
+        var historic = this.model.get('historic');
+
+        _.each(historic, function (year) {
+            data.push({
+                x: year[x],
+                y: year[y]
+            })
+        })
+        var plot = new Contour({
+                el: '[data-x="' + x + '"][data-y="' + y + '"]',
+                chart: {
+                    height: 50,
+                    width: 60,
+                    padding: {
+                        left: 1,
+                        bottom: 1
+                    }
+                },
+                xAxis: {
+                    innerTickSize: 0,
+                    outerTickSize: 0
+                },
+                yAxis: {
+                    innerTickSize: 0,
+                    outerTickSize: 0
+                },
+                scatter: {
+                    radius: 1
+                }
+            })
+            .cartesian();
+
+        plot.scatter(data)
+        plot.render();
     },
 
     renderHistoryBars: function (name, values) {
         new Contour({
                 el: '[data-name="' + name + '"]',
                 chart: {
-                    height: 80
+                    height: 80,
+                    width: 60,
+                    padding: {
+                        left: 10
+                    }
                 }
             })
             .cartesian()

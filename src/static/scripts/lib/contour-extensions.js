@@ -84,7 +84,7 @@ Contour.export('adjustVertical', function (data, layer, options) {
 
     var chartWidth = d3.select(this.svg.selectAll('rect'))[0][0].attr('width');
 
-    var total = 400;
+    var total = options.adjustVertical.totalValue;
     var value = options.adjustVertical.average - 40;
     var x = value / total * chartWidth + 3;
     // var x = +donutTextNode.attr('x1') + 22;

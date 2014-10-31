@@ -19,6 +19,8 @@ module.exports = RouterBase.extend({
 
     invest: function () {
         var that = this;
+        
+        this.scenario = new ScenarioModel();
         this.scenario.runReady({
             success: function () {
                 that.showView(new InvestView({
@@ -29,14 +31,15 @@ module.exports = RouterBase.extend({
     },
 
     leaderboard: function () {
-        this.showView(new LeaderboardView());
+        var that = this;
+        this.showView(new LeaderboardView({
+            model: that.scenario
+        }));
     },
 
     initialize: function () {
         __super__.initialize.apply(this, arguments);
 
-
-        this.scenario = new ScenarioModel();
         Backbone.history.start();
 
         return this;

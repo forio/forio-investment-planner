@@ -16,6 +16,7 @@ function App() {
 
 var whatData = require('data/used-items');
 
+var HistoricalCollection = require('collections/historical-collection');
 
 var Handlebars = require('handlebars');
 var templates = require('templates')(Handlebars);
@@ -27,8 +28,13 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
 
         $('#what-we-used').html(whatTemplate(whatData));
 
-        this.scenarios = new Backbone.Collection();
-        this.router = new MainRouter({});
+        this.scenarios = new HistoricalCollection();
+        var that = this;
+        this.scenarios.fetch({
+            success: function () {
+                that.router = new MainRouter({});
+            }
+        });
     },
 
     showLoading: function (msg) {
