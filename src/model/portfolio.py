@@ -2,6 +2,7 @@
 """
 
 import numpy as np
+from epicenter import Epicenter
 
 
 def calculate(func):
@@ -128,13 +129,17 @@ class Portfolio(object):
 
         # Calculate metrics for the UI
         self.average_returns = float(self._returns[:, 4].mean())
+        Epicenter.record("portfolio.average_returns", self.average_returns)
+
         self._returns = self._returns.tolist()
+        Epicenter.record("portfolio.returns", self.returns)
         self._calculate_failures()
 
     def _calculate_failures(self):
         threshold = self.initial - self.loss_threshold
         total_under = float(sum([x[4] < threshold for x in self._returns]))
         self.failure_percent = total_under / self.rands.shape[0]
+        Epicenter.record("portfolio.average_returns", self.failure_percent)
 
     @property
     def allocations(self):
