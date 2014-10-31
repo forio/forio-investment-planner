@@ -127,7 +127,7 @@ class Portfolio(object):
                                    self.scenario_returns[:, j - 1])
 
         # Calculate metrics for the UI
-        self.average_returns = self._returns[:, 4].mean()
+        self.average_returns = float(self._returns[:, 4].mean())
         self._returns = self._returns.tolist()
         self._calculate_failures()
 
