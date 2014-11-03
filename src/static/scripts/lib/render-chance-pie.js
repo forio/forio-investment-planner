@@ -26,7 +26,9 @@ module.exports = function (chance) {
 
     chancePie.donutText({ value: chancePer });
 
-    chancePie.adjustDonut();
+    chancePie.adjustDonut({}, {
+        value: chancePer
+    });
 
     chancePie.chanceText();
 

@@ -31,12 +31,7 @@ module.exports = BaseView.extend({
     },
 
     events: {
-        'click #replay-button':'restartScenario',
-        'click .leaders-table row': 'selectRun'
-    },
-
-    selectRun: function (e) {
-        var model = App.scenarios.get($(e.currentTarget).data('cid'));
+        'click #replay-button':'restartScenario'
     },
 
     restartScenario: function () {

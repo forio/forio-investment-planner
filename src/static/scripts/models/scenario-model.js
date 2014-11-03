@@ -88,15 +88,11 @@ module.exports = BaseModel.extend({
         });
     },
 
-    bucketSize: 40,
+    bucketSize: 20,
 
-    buckets: 6,
+    buckets: 12,
 
-    bucketStart: 40,
-
-    getTotalValue: function () {
-        return this.buckets * this.bucketSize; // + this.bucketStart;
-    },
+    bucketStart: 20,
 
     calculateSpread: function () {
         var valuesFinalIndex = this.get('returns')[0].length - 1;
@@ -123,7 +119,16 @@ module.exports = BaseModel.extend({
             bucketI++;
         }
 
-        this.set('bucketData', bucketData);
+        this.set('bucketSpread', bucketData);
+    },
+
+    bucketData: function  () {
+        return {
+            bucketSpread: this.get('bucketSpread'),
+            bucketStart: this.bucketStart,
+            bucketSize: this.bucketSize,
+            totalValue: this.buckets * this.bucketSize
+        };
     },
 
     transformSet: function (json) {

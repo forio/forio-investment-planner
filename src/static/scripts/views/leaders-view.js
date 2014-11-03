@@ -11,7 +11,6 @@ module.exports = BaseView.extend({
         'click .row[data-cid]': 'selectRun'
     },
 
-
     selectRun: function (e) {
         App.scenarios.setSelected(App.scenarios.get($(e.currentTarget).data('cid')));
     },
@@ -19,7 +18,7 @@ module.exports = BaseView.extend({
     render: function () {
         App.scenarios.rankRuns();
         this.$el.html(this.template({
-            players: App.scenarios.toJSON().reverse()
+            players: _.map(App.scenarios.sortBy('rank'), function(model) { return model.toJSON();}).reverse()
         }));
 
         return this;

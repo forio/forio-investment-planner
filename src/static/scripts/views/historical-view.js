@@ -16,10 +16,6 @@ module.exports = BaseView.extend({
 
     initialize: function (opts) {
         this.model = opts.model;
-        _.each(this.historicalData, function (item) {
-            item.average = d3.format('%.2f')(item.average);
-        });
-
         return BaseView.prototype.initialize.apply(this, arguments);
     },
 
@@ -29,8 +25,6 @@ module.exports = BaseView.extend({
             correlation: this.model.get('correlation'),
             historic: this.model.get('historic')
         }));
-
-
 
         return this;
     },
@@ -47,7 +41,7 @@ module.exports = BaseView.extend({
             historicalData.push({
                 name: label,
                 historicalValues: historicalValues,
-                average: d3.format('%.2f')(average)
+                average: average
             })
         }, this);
 

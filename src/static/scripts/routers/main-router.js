@@ -23,6 +23,7 @@ module.exports = RouterBase.extend({
         this.scenario = new ScenarioModel();
         this.scenario.runReady({
             success: function () {
+                App.hideLoading();
                 that.showView(new InvestView({
                     model: that.scenario
                 }));
@@ -32,6 +33,8 @@ module.exports = RouterBase.extend({
 
     leaderboard: function () {
         var that = this;
+        
+        App.hideLoading();
         this.showView(new LeaderboardView({
             model: that.scenario
         }));

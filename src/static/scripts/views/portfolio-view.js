@@ -85,7 +85,7 @@ module.exports = BaseView.extend({
         this.renderForcast(this.model.get('returns'));
         this.average = this.model.get('average_returns');
 
-        this.renderSpread(this.model.get('bucketData'), this.model.get('failure_percent'), this.model.getTotalValue());
+        this.renderSpread(this.model.get('failure_percent'),this.model.bucketData());
     },
 
     afterRender: function () {

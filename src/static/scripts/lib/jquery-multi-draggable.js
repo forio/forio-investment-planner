@@ -4,7 +4,7 @@
     var totalWidth;
 
     var addIcon = function ($item) {
-        var $icon = $('<i>').addClass('ss-pause ss-standard');
+        var $icon = $('<i>').addClass('dragger');
         $item.append($icon);
 
         return $icon;
@@ -37,11 +37,11 @@
                 var currentX;
 
                 $icon.on('mousedown', function (e) {
-                    var minX = $item.position().left;
+                    var minX = $item.offset().left;
 
                     var $neighbor = $item.next();
                     if ($neighbor.length) {
-                        var maxX = $neighbor.width() + $neighbor.position().left;
+                        var maxX = $neighbor.width() + $neighbor.offset().left;
                     }
                     currentX = e.pageX;
 

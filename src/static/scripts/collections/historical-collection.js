@@ -17,7 +17,9 @@ module.exports = BaseCollection.extend({
     },
 
     removeAll: function() {
-        this.remove(this.models, true);
+        _.each(this.models, function (model) {
+            model.runService.save({saved: false}, {filter: model.run.id});
+        })
     },
 
     normalize: function (varName, positiveDir) {
@@ -53,8 +55,6 @@ module.exports = BaseCollection.extend({
         _.each(this.models, function (model) {
             model.set('rank', model.get('rank_average_returns') + model.get('rank_failure_percent'));
         });
-
-        this.sortBy('rank');
     },
 
    fetch: function (opts) {

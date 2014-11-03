@@ -5,8 +5,53 @@
         vertical-align: middle !important;
         margin: 0;
         // white-space: nowrap;
-        border: none;
+        border: 1px dashed #dddddd !important;
         max-width: 70px;
+    }
+
+    .headcol {
+        border: none !important;
+    }
+
+    .toprow {
+        border-top: none !important;
+    }
+
+    th {
+        vertical-align: middle !important;
+        border: none !important;
+        font-size: 11px;
+    }
+
+    tbody {
+        tr:first-of-type {
+            td {
+                border-top: none !important;
+            }
+        }
+    }
+
+    .names-head {
+        td {
+            font-size: 11px;
+            border: none !important;
+            border-bottom: none !important;
+        }
+    }
+
+    tr {
+        td:last-of-type {
+            border-right: 0 !important;
+        }
+        td:first-of-type {
+            border-left: 0 !important;
+        }
+    }
+
+    tr:last-of-type {
+        td {
+            border-bottom: 0 !important;
+        }
     }
 
     .history-bar {

@@ -35,8 +35,8 @@ module.exports = BaseView.extend({
     afterRender: function () {
         var that = this;
         this.model.getReturns(function () {
-            that.renderSpread(that.model.get('bucketData'), that.model.get('failure_percent'), that.model.getTotalValue());
-            that.renderForcast(that.model.get('returns'));
+            that.renderSpread(that.model.get('failure_percent'), that.model.bucketData());
+            that.renderForcast(that.model.get('returns'), that.model.bucketSize);
         });
         this.average = this.model.get('average_returns');
     },

@@ -12,7 +12,7 @@
                 <tr class="names-head">
                     <td class="headcol"></td>
                     {{#each historicalData}}
-                        <td>{{name}}</td>
+                        <td class="toprow">{{name}}</td>
                     {{/each}}
                 </tr>
             </thead>
@@ -30,8 +30,8 @@
                 <tr>
                     <th>Average</th>
                     {{#each historicalData}}
-                        <td>
-                            {{average}}
+                        <td class="number">
+                            {{formatPercent average}}
                         </td>
                     {{/each}}
                 </tr>

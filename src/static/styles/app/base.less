@@ -13,10 +13,14 @@ body {
     font-family: 'Fira Sans', sans-serif;
 }
 
-// .row {
-//     margin-left: 0px;
-//     margin-right: 0px;
-// }
+.number, .donut-text {
+    font-family: "Courier New", monospace;
+}
+
+.donut-text {
+    stroke-width: 0.5px;
+}
+
 
 .btn {
     padding-bottom: 1px;
@@ -48,4 +52,45 @@ body {
 
 .header-title {
     margin-left: -15px;
+}
+
+#loading-backdrop {
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s;
+
+    &.show1 {
+        display: block;
+    }
+    &.show2 {
+        opacity: 0.2;
+    }
+}
+
+#loading-indicator {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 230px;
+    margin-left: -100px;
+    margin-top: -50px;
+    background: #444;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 1.3em;
+    text-align: center;
+    font-weight: bold;
+    color: #FFF;
+    z-index: 2000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

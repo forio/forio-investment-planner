@@ -30,6 +30,8 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
 
         this.scenarios = new HistoricalCollection();
         var that = this;
+
+        this.showLoading();
         this.scenarios.fetch({
             success: function () {
                 that.router = new MainRouter({});
@@ -38,7 +40,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
     },
 
     showLoading: function (msg) {
-        msg = msg || CONFIG.getLabel('loading', CONFIG.general);
+        msg = 'Loading...';
 
         $('#loading-indicator').html(msg);
         // animate in the loading indicator

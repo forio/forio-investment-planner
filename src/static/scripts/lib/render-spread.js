@@ -1,6 +1,8 @@
-module.exports = function (buckedData, chance, totalValue) {
-    var data = buckedData;
-
+module.exports = function (chance, bucketData) {
+    var data = bucketData.bucketSpread;
+    var bucketSize = bucketData.bucketSize;
+    var bucketStart = bucketData.bucketStart;
+    var totalValue = bucketData.totalValue;
     this.renderChancePie(chance);
 
     var tickValues = []
@@ -17,11 +19,9 @@ module.exports = function (buckedData, chance, totalValue) {
                 innerTickSize: 0,
                 outerTickSize: 0,
                 strokeWidth: '0px',
-                // tickValues: [2,4,6,8,10],
-                // ticks: 5,
                 labels: {
                     formatter: function (g) {
-                        return (g + 1) * 40 + '$';
+                        return (g + 1) * bucketSize + '$';
                     }
                 }
             },
@@ -41,7 +41,8 @@ module.exports = function (buckedData, chance, totalValue) {
 
     resultsSpread.adjustVertical(data, {
         average: this.average,
-        totalValue: totalValue
+        totalValue: totalValue,
+        bucketStart: bucketStart
     });
 
     resultsSpread.render();
