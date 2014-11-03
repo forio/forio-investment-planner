@@ -35,6 +35,7 @@ module.exports = BaseView.extend({
     },
 
     restartScenario: function () {
+        App.showLoading();
         Backbone.history.navigate('', {trigger: true});
     },
 
