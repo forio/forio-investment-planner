@@ -139,7 +139,7 @@ class Portfolio(object):
         threshold = self.initial - self.loss_threshold
         total_under = float(sum([x[4] < threshold for x in self._returns]))
         self.failure_percent = total_under / self.rands.shape[0]
-        Epicenter.record("portfolio.average_returns", self.failure_percent)
+        Epicenter.record("portfolio.failure_percent", self.failure_percent)
 
     @property
     def allocations(self):
