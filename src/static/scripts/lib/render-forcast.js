@@ -17,6 +17,7 @@ module.exports = function (data) {
                 right: 60
             },
             height: 160,
+            animations : { enable: false },
         },
         xAxis: {
             innerTickSize: 0,

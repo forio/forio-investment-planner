@@ -9,6 +9,7 @@ module.exports = function (chance) {
             el: '.chance-pie',
             chart: {
                 height: 140,
+                animations : { enable: false },
                 padding: {
                     top: pieTopPadding
                 }
