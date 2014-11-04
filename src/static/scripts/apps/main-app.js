@@ -40,7 +40,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
     },
 
     showLoading: function (msg) {
-        msg = 'Loading...';
+        msg = 'Loading simulation';
 
         $('#loading-indicator').html(msg);
         // animate in the loading indicator
@@ -71,7 +71,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
             className: 'spinner', // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
             top: '50%', // Top position relative to parent
-            left: '80%' // Left position relative to parent
+            left: '90%' // Left position relative to parent
         };
         var target = document.getElementById(id);
         var spinner = new Spinner(opts).spin(target);
