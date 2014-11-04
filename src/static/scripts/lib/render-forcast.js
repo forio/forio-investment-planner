@@ -13,11 +13,11 @@ module.exports = function (data) {
         el: '.return-forcast',
         chart: {
             padding: {
-                left: 120,
+                left: 130,
                 right: 60
             },
-            height: 160,
             animations : { enable: false },
+            height: 200,
         },
         xAxis: {
             innerTickSize: 0,
@@ -35,14 +35,9 @@ module.exports = function (data) {
         yAxis: {
             innerTickSize: 0,
             outerTickSize: 0,
-            ticks: 3,
-            // tickValues: 3,
-            max: 300,
+            ticks: 2,
             labels: {
                 formatter: function (g) {
-                    if (g === 200) {
-                        return ''
-                    };
                     return '$' + g;
                 }
             }

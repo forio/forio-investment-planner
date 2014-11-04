@@ -13,8 +13,8 @@ module.exports = function (chance, bucketData) {
                     left: 0,
                     right: 0
                 },
-                height: 160
                 animations : { enable: false },
+                height: 120
             },
             xAxis: {
                 innerTickSize: 0,
