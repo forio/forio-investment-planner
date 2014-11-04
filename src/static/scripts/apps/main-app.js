@@ -41,7 +41,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
     },
 
     showLoading: function (msg) {
-        msg = '<h1>Investment Portfolio Simulator</h1><hr><h4>I am initializing the simulator... one moment please.</h4>';
+        msg = '<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div><h1>Investment Portfolio Simulator</h1><hr><h4>I am initializing... one moment please.</h4>';
 
         $('#loading-indicator').html(msg);
         // animate in the loading indicator
@@ -63,6 +63,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
         }, 900);
         // animate out the loading indicator
         $('#loading-indicator').hide(300);
+        $('#loading-indicator').html('');
         $('#content').removeClass('loading');
     }
 });
