@@ -21,7 +21,7 @@ module.exports = function (chance, bucketData) {
                 strokeWidth: '0px',
                 labels: {
                     formatter: function (g) {
-                        return (g + 1) * bucketSize + '$';
+                        return  '$' + (g + 1) * bucketSize;
                     }
                 }
             },

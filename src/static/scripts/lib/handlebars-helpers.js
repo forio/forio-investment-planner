@@ -28,7 +28,7 @@ var leverMap = {
     'select-year': 'select'
 };
 
-var percentFormatter = d3.format('.2%');
+var percentFormatter = d3.format('.1%');
 
 var currencyFormatter = d3.format('$.2f');
 

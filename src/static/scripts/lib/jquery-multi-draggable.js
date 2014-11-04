@@ -10,8 +10,17 @@
         return $icon;
     }
 
+    var getNeigbor = function ($item) {
+        var $cash = $('.draggable').last();
+
+        if ($cash.width() > 2) {
+            return $cash;
+        }
+        return $item.next();
+    }
+
     var normalize = function  (opt) {
-        if (opt.newValue < 0.0015) {
+        if (opt.newValue < 0.01) {
             opt.newNeighborValue += opt.newValue;
             opt.newValue = 0;
         }
@@ -31,7 +40,6 @@
 
                 var $item = $(this);
 
-
                 var $icon =  addIcon($item);
 
                 var currentX;
@@ -39,11 +47,13 @@
                 $icon.on('mousedown', function (e) {
                     var minX = $item.offset().left;
 
-                    var $neighbor = $item.next();
+                    var $neighbor = getNeigbor($item);
                     if ($neighbor.length) {
-                        var maxX = $neighbor.width() + $neighbor.offset().left;
-                    }
+                        var maxX = $neighbor.width() + $item.offset().left + $item.width();
+                    } 
                     currentX = e.pageX;
+
+                    var neighborWidth = $neighbor.width();
 
                     var newWidth;
                     var newValue;
@@ -54,7 +64,7 @@
                         if (e.pageX < maxX && e.pageX > minX) {
                             newWidth = e.pageX - minX;
                             $item.width(newWidth);
-                            newNeighborWidth = maxX - e.pageX;
+                            newNeighborWidth = neighborWidth - ( e.pageX - currentX );
                             $neighbor.width(newNeighborWidth);
                             newValue = newWidth / totalWidth;
                             newNeighborValue = newNeighborWidth / totalWidth;

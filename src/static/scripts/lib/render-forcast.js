@@ -42,7 +42,7 @@ module.exports = function (data) {
                     if (g === 200) { 
                         return ''
                     };
-                    return g +'$';
+                    return '$' + g;
                 }
             }
         },
