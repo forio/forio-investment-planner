@@ -44,7 +44,7 @@ module.exports = BaseView.extend({
         this.model.recalculate(this.renderCharts.bind(this));
 
         this.renderInputs();
-        // this.renderCharts();
+        this.renderCharts();
     }, 80),
 
     updateFromInput: function (e) {
@@ -52,7 +52,7 @@ module.exports = BaseView.extend({
         this.model.set($input.data('variable'), +$input.val());
         this.modelChanged();
     },
-    
+
     initialize: function (opts) {
         this.model = opts.model;
 
