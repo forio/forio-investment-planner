@@ -44,13 +44,15 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
 
         $('#loading-indicator').html(msg);
         // animate in the loading indicator
-        $('#loading-indicator').show(200);
+        $('#loading-indicator').show(100);
         // set display:block on the backdrop
         $('#loading-backdrop').addClass('show1');
-        this.spinner('loading-indicator');
+        var that = this;
         // animate in the backdrop
         setTimeout(function () {
-            $('#loading-backdrop').addClass('show2');
+            setTimeout( function () {
+                that.spinner('loading-indicator');
+            }, 120)
         }, 1);
     },
 
@@ -58,7 +60,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
         var opts = {
             lines: 8, // The number of lines to draw
             length: 3, // The length of each line
-            width: 1, // The line thickness
+            width: 4, // The line thickness
             radius: 4, // The radius of the inner circle
             corners: 1, // Corner roundness (0..1)
             rotate: 0, // The rotation offset

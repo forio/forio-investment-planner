@@ -20,7 +20,7 @@
     }
 
     var normalize = function  (opt) {
-        if (opt.newValue < 0.0015) {
+        if (opt.newValue < 0.01) {
             opt.newNeighborValue += opt.newValue;
             opt.newValue = 0;
         }
@@ -39,11 +39,6 @@
             that.each( function () {
 
                 var $item = $(this);
-
-                if ($item == $('.draggable').last()) {
-                    $item.width($item.width() - 3);
-                }
-
 
                 var $icon =  addIcon($item);
 
