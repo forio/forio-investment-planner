@@ -27,6 +27,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
     initialize: function () {
 
         $('#what-we-used').html(whatTemplate(whatData));
+        $('#content').addClass('loading');
 
         this.scenarios = new HistoricalCollection();
         var that = this;
@@ -40,7 +41,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
     },
 
     showLoading: function (msg) {
-        msg = 'Loading...';
+        msg = '<h1>Investment Portfolio Simulator</h1><hr><h4>I am initializing the simulator... one moment please.</h4>';
 
         $('#loading-indicator').html(msg);
         // animate in the loading indicator
@@ -59,9 +60,10 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
         // set display:none on the backdrop
         setTimeout(function () {
             $('#loading-backdrop').removeClass('show1');
-        }, 500);
+        }, 900);
         // animate out the loading indicator
         $('#loading-indicator').hide(300);
+        $('#content').removeClass('loading');
     }
 });
 
