@@ -1,5 +1,5 @@
 module.exports = function (data) {
-    
+
 
     var avg = [];
     var forcastsLength = data.length;
@@ -24,7 +24,7 @@ module.exports = function (data) {
             ticks: 4,
             labels: {
                 formatter: function (g) {
-                    if (g === 0) { 
+                    if (g === 0) {
                         return ''
                     };
                     return 'Year ' + g;
@@ -39,10 +39,10 @@ module.exports = function (data) {
             max: 300,
             labels: {
                 formatter: function (g) {
-                    if (g === 200) { 
+                    if (g === 200) {
                         return ''
                     };
-                    return g +'$';
+                    return '$' + g;
                 }
             }
         },
