@@ -34,7 +34,7 @@ module.exports = BaseView.extend({
         'slideUpdate .draggable': 'updateFromSlider'
     },
 
-    updateFromSlider: _.throttle(function () {
+    updateFromSlider: _.debounce(function () {
         var $drag
         _.each(this.draggables, function (drag) {
             $drag = $(drag);
@@ -44,13 +44,18 @@ module.exports = BaseView.extend({
         this.model.recalculate(this.renderCharts.bind(this));
 
         this.renderInputs();
-        // this.renderCharts();
-    }, 80),
+    }, 100),
 
     updateFromInput: function (e) {
         var $input = $(e.currentTarget);
-        this.model.set($input.data('variable'), +$input.val());
-        this.modelChanged();
+        var newVal = +$input.val().replace('%','') / 100;
+        var that = this;
+        this.model.setNewProportion($input.data('variable'), newVal, function () {
+            that.model.recalculate(function () {
+                that.render();
+                that.afterRender();
+            });
+        });
     },
     
     initialize: function (opts) {
