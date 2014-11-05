@@ -2,10 +2,19 @@ module.exports = function (data) {
     var avg = [];
     var forcastsLength = data.length;
     var sum;
-    for (var i = 0, l = data[0].length; i < l; i++) {
+    var forcastLength = data[0].length;
+    var lasts = _.map(data, function (forcast) {
+        return forcast[forcastLength - 1];
+    })
+    for (var i = 0, l = forcastLength; i < l; i++) {
         sum = _.reduce(data, function(memo, forcast){ return memo + forcast[i]; }, 0);
         avg.push(sum / forcastsLength);
     }
+
+
+
+    var min = +_.min(lasts).toFixed();
+    var max = +_.max(lasts).toFixed();
 
     var forcast = new Contour({
         el: '.return-forcast',
@@ -31,9 +40,10 @@ module.exports = function (data) {
             }
         },
         yAxis: {
+            zeroAnchor: false,
             innerTickSize: 0,
             outerTickSize: 0,
-            ticks: 2,
+            tickValues: [min, 100, max],
             labels: {
                 formatter: function (g) {
                     if (g === 200) { 

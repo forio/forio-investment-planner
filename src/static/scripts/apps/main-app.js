@@ -43,6 +43,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
     showLoading: function (msg) {
         msg = '<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div><h1>Loading Simulation</h4>';
 
+        msg = 'Loading Simulation';
         $('#loading-indicator').html(msg);
         // animate in the loading indicator
         $('#loading-indicator').show(100);
@@ -52,7 +53,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
         // animate in the backdrop
         setTimeout(function () {
             setTimeout( function () {
-                // that.spinner('loading-indicator');
+                that.spinner('loading-indicator');
             }, 120)
         }, 1);
     },
@@ -61,7 +62,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
         var opts = {
             lines: 8, // The number of lines to draw
             length: 3, // The length of each line
-            width: 4, // The line thickness
+            width: 2, // The line thickness
             radius: 4, // The radius of the inner circle
             corners: 1, // Corner roundness (0..1)
             rotate: 0, // The rotation offset
@@ -74,7 +75,7 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
             className: 'spinner', // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
             top: '50%', // Top position relative to parent
-            left: '90%' // Left position relative to parent
+            left: '10%' // Left position relative to parent
         };
         var target = document.getElementById(id);
         var spinner = new Spinner(opts).spin(target);
