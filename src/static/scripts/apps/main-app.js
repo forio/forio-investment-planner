@@ -43,7 +43,13 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
         });
 
         var ready = _.after(2, function () {
+            //$('#loading-container').hide(300);
+            $('#loading-container').addClass('done');
             $('#start_button').removeAttr('disabled');
+            setTimeout( function () {
+                $('#loading-container').hide(0);
+                $('#loading-container').removeClass('done');
+            }, 200)
         });
 
         this.scenario = new ScenarioModel();

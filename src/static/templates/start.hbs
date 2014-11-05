@@ -1,18 +1,45 @@
-<div class="row">
-    <div class="left col-xs-7">
+<div class="row welcome">
+    <div class="right col-xs-12">
         <div class="row">
-            <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-xs-10 col-xs-offset-1 title-group">
-                        <h3>Investment Portfolio Simulation</h3>
-                        <p>
-                            Adjust your portfolio to achieve an average return of at least $120 while minimizing y
-                    </div>
+            <div class="col-xs-10 col-xs-offset-1 text-center">
+                <h1>Investment Portfolio Simulation</h1>
+                <h3>
+                    Adjust your portfolio to achieve an average return of at least $120 while minimizing your chance of losing $5
+                </h3>
+            </div>
+        </div>
+        <div class="row instructions">
+            <div class="col-xs-3">
+                <div id="outcome" class="instruction-text before left">
+                    As you move the sliders your portfolio allocation is updated.
+                </div>
+                <div id="entry" class="instruction-text after left">
+                    Adjust the sliders to allocate the assets in you portfolio in order to achieve your target while minimizing your chance of loss.
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <img src="images/game.png" class="img-responsive"/>
+            </div>
+            <div class="col-xs-3">
+                <div id="historical" class="instruction-text before right">
+                    Look through the historical data provided to help you make decisions about your portfolio.
                 </div>
             </div>
         </div>
     </div>
-    <div class="right col-xs-5">
-        <button class="btn" id="start_button" disabled>Start</button>
+</div>
+<div class="row start-sim">
+    <div id="loading-container">
+        <h2>Loading Simulation</h2>
+        <div class="spinner">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+    <div id="start-container" class="col-xs-6 col-xs-offset-3">
+        <button class="btn btn-info" id="start_button" disabled>
+            <div class="ss-icon ss-standard ss-play"></div>
+            Start Simulation
+        </button>
     </div>
 </div>

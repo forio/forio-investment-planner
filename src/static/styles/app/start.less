@@ -1,0 +1,103 @@
+@pointer-width: 100px;
+
+.welcome {
+    h1 {
+        border-bottom: 1px solid @what-we-used-background;
+    }
+
+    .instructions {
+        margin-top: 20px;
+
+        .instruction-text {
+            background-color: transparent;
+            color: @gray;
+            padding: 8px;
+            position: relative;
+            width: 100%;
+
+            &:before {
+                content: '';
+                width: 15%;
+                height: 1px;
+                background-color: @highlight-color;
+                position: absolute;
+                top: 50%;
+            }
+
+            &.left {
+                border-right: 1px solid @highlight-color;
+
+                &:before {
+                    right: -15%;
+                }
+            }
+
+            &.right {
+                border-left: 1px solid @highlight-color;
+
+                &:before {
+                    left: -15%;
+                }
+            }
+        }
+
+        #outcome {
+            top: 70px;
+        }
+
+        #entry {
+            top: 200px;
+        }
+
+        #historical {
+            top: 20px;
+        }
+    }
+}
+
+.start-sim {
+    background-color: @what-we-used-background;
+    height: 140px;
+}
+
+#start-container {
+
+    #start_button {
+        display: block;
+        margin: 30px auto 0px;
+        height: 80px;
+        width: 60%;
+        border-radius: 8px;
+        z-index: 1100;
+
+        &[disabled] {
+            display: none;
+            z-index: 900;
+        }
+    }
+}
+
+#loading-container {
+    background-color: @what-we-used-background;
+    position: absolute;
+    width: 100%;
+    opacity: 1;
+    z-index: 1000;
+    transition: opacity 300ms;
+
+    &.done {
+        opacity: 0;
+    }
+
+    .spinner {
+        width: 60px;
+        height: 60px;
+        position: relative;
+        margin: 0px auto;
+        }
+
+    h2 {
+        text-align: center;
+        color: @body-bg;
+    }
+}
