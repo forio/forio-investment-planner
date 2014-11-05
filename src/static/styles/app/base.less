@@ -72,14 +72,10 @@ body {
     height: 100%;
     background-color: @what-we-used-background;
     z-index: 1000;
-    opacity: 0;
-    transition: opacity 0.5s;
+    opacity: 0.2;
 
     &.show1 {
         display: block;
-    }
-    &.show2 {
-        opacity: 1;
     }
 }
 
@@ -93,7 +89,6 @@ body {
     border-radius: 4px;
     padding: 10px 15px;
     font-size: 1.3em;
-    text-align: center;
     font-weight: bold;
     color: @body-bg;
     z-index: 2000;
@@ -151,4 +146,7 @@ body {
             -webkit-transform: scale(1.0);
         }
     }
+}
+.contour-chart .axis text {
+    fill: #EEEEEE;
 }

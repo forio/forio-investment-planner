@@ -1,6 +1,4 @@
 module.exports = function (data) {
-
-
     var avg = [];
     var forcastsLength = data.length;
     var sum;
@@ -38,6 +36,9 @@ module.exports = function (data) {
             ticks: 2,
             labels: {
                 formatter: function (g) {
+                    if (g === 200) { 
+                        return ''
+                    };
                     return '$' + g;
                 }
             }

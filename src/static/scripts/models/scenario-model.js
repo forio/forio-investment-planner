@@ -233,5 +233,41 @@ module.exports = BaseModel.extend({
         this.run.name = this.run.name ? this.run.name : 'Scenario';
         this.set('name',this.run.name);
         this.runService.save({ name: this.run.name }, {filter: this.run.id});
+    },
+
+    setNewProportion: function (variable, newVal, callBack) {
+        var currentVal = this.get(variable);
+        if ( currentVal > newVal ) {
+            var cashVal = this.get('cash_equivalents');
+            this.set('cash_equivalents', cashVal + currentVal - newVal);
+            this.set(variable, newVal);
+            callBack();
+        } else {
+            newVal = newVal > 1 ? 1.00 : newVal;
+
+            var need = newVal - currentVal;
+
+            var proportions = this.proportions.slice();
+            var curIndex = proportions.indexOf(variable);
+            proportions.splice(curIndex, 1);
+
+            var curProportion;
+            var curVal;
+            while (need && proportions.length) {
+                curProportion = proportions.pop();
+                curVal = this.get(curProportion)
+                if (curVal >= need )  {
+                    this.set(curProportion, curVal - need);
+                    need = false;
+                } else {
+                    need = need - curVal;
+                    this.set(curProportion, 0);
+                }
+            }
+
+            this.set(variable, newVal);
+
+            callBack();
+        }
     }
 });
