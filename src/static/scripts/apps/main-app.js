@@ -23,8 +23,14 @@ var templates = require('templates')(Handlebars);
 
 var whatTemplate = templates['what-we-used'];
 
+var startTemplate = templates['start'];
+
+var ScenarioModel = require('models/scenario-model');
+
 App.prototype = _.extend(ContourBaseApp.prototype, {
     initialize: function () {
+
+        $('#content').html(startTemplate());
 
         $('#what-we-used').html(whatTemplate(whatData));
         $('#content').addClass('loading');
@@ -32,11 +38,22 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
         this.scenarios = new HistoricalCollection();
         var that = this;
 
-        this.showLoading();
+        $('#start_button').on('click', function () {
+            that.router = new MainRouter({});
+        });
+
+        var ready = _.after(2, function () {
+            $('#start_button').removeAttr('disabled');
+        });
+
+        this.scenario = new ScenarioModel();
+        this.scenario.runReady({
+            success: ready
+        });
+
+        // this.showLoading();
         this.scenarios.fetch({
-            success: function () {
-                that.router = new MainRouter({});
-            }
+            success: ready
         });
     },
 
