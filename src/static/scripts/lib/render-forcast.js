@@ -14,7 +14,7 @@ module.exports = function (data) {
                 left: 130,
                 right: 60
             },
-            animations : { enable: false },
+            // animations : { enable: false },
             height: 200,
         },
         xAxis: {
