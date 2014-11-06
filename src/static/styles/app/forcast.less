@@ -1,5 +1,5 @@
 .return-forcast {
-    g[vis-id="1"] {
+    g[vis-id="2"] {
         .series {
             stroke: @graph-color;
             fill: none;
@@ -8,6 +8,7 @@
                 stroke-width: 1px;
             }
         }
+        
         // path {
         //     stroke: 5px;
         // }
@@ -17,10 +18,17 @@
         text-anchor: end !important;
     }
 
-    g[vis-id="2"] {
+    g[vis-id="1"] {
         path {
             stroke-width: 5px;
             stroke: @highlight-color;
         }
+    }
+
+    .nw-tooltip {
+        .text {
+            color: black;
+        }
+        background: @right-background;
     }
 }
