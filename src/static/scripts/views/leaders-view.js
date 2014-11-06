@@ -17,8 +17,13 @@ module.exports = BaseView.extend({
 
     render: function () {
         App.scenarios.rankRuns();
+        var json;
         this.$el.html(this.template({
-            players: _.map(App.scenarios.sortBy('rank'), function(model) { return model.toJSON();}).reverse()
+            players: _.map(App.scenarios.sortBy('rank'), function(model, index) { 
+                json = model.toJSON();
+                json.index = 10 - index;
+                return json;
+            }).reverse()
         }));
 
         return this;
