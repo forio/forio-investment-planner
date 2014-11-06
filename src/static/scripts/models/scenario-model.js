@@ -84,6 +84,10 @@ module.exports = BaseModel.extend({
                 that.transformSet(data);
                 that.calculateSpread();
                 callBack()
+            },
+            error:function () {
+                App.scenarios.remove(that);
+                callBack();
             }
         });
     },
@@ -144,6 +148,10 @@ module.exports = BaseModel.extend({
             success: function (data) {
                 that.transformSet(data);
                 callBack()
+            },
+            error:function () {
+                App.scenarios.remove(that);
+                callBack();
             }
         });
     },
@@ -154,6 +162,10 @@ module.exports = BaseModel.extend({
             success: function (data) {
                 that.transformSet(data);
                 callBack()
+            },
+            error:function () {
+                App.scenarios.remove(that);
+                callBack();
             }
         });
     },
@@ -210,6 +222,10 @@ module.exports = BaseModel.extend({
             success: function (data) {
                 that.transformSet(data);
                 callBack()
+            },
+            error:function () {
+                App.scenarios.remove(that);
+                callBack();
             }
         });
     },
