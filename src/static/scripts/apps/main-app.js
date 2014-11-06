@@ -66,19 +66,20 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
     showLoading: function (msg) {
         msg = '<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div><h1>Loading Simulation</h4>';
 
-        msg = 'Loading Simulation';
+        //msg = 'Loading Simulation';
         $('#loading-indicator').html(msg);
         // animate in the loading indicator
         $('#loading-indicator').show(100);
         // set display:block on the backdrop
         $('#loading-backdrop').addClass('show1');
+        $('#loading-backdrop').addClass('show2');
         var that = this;
         // animate in the backdrop
-        setTimeout(function () {
-            setTimeout( function () {
-                that.spinner('loading-indicator');
-            }, 120)
-        }, 1);
+        // setTimeout(function () {
+        //     setTimeout( function () {
+        //         that.spinner('loading-indicator');
+        //     }, 120)
+        // }, 1);
     },
 
     spinner: function (id) {
