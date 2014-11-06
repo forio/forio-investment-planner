@@ -31,7 +31,6 @@ class Portfolio(object):
 
         self.initial = 100.0
         self.loss_threshold = 5.0
-        self.average_returns = 0.0
         self._returns = []
         self.average_returns = 0.0
 
@@ -128,7 +127,7 @@ class Portfolio(object):
                                    self.scenario_returns[:, j - 1])
 
         # Calculate metrics for the UI
-        self.average_returns = float(self._returns[:, 4].mean())
+        self.average_returns = float(self._returns[:, -1].mean())
         Epicenter.record("portfolio.average_returns", self.average_returns)
 
         self._returns = self._returns.tolist()
@@ -137,7 +136,7 @@ class Portfolio(object):
 
     def _calculate_failures(self):
         threshold = self.initial - self.loss_threshold
-        total_under = float(sum([x[4] < threshold for x in self._returns]))
+        total_under = float(sum([x[-1] < threshold for x in self._returns]))
         self.failure_percent = total_under / self.rands.shape[0]
         Epicenter.record("portfolio.failure_percent", self.failure_percent)
 
