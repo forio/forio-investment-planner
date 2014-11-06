@@ -38,7 +38,7 @@ module.exports = BaseCollection.extend({
         });
     },
 
-    rankRuns: function () {
+    removePastLimit: function () {
         var models = this.sortBy('created').reverse();
 
         var model;
@@ -47,6 +47,9 @@ module.exports = BaseCollection.extend({
             model.runService.save({saved: false}, {filter: model.run.id});
             this.remove(model);
         }
+    },
+
+    oldRank: function () {
         this.normalize('failure_percent', -1);
         this.normalize('average_returns', 1);
 
@@ -55,6 +58,23 @@ module.exports = BaseCollection.extend({
         _.each(this.models, function (model) {
             model.set('rank', model.get('rank_average_returns') + model.get('rank_failure_percent'));
         });
+    },
+
+    newRank: function () {
+        _.each(this.models, function (model) {
+            if (model.get('average_returns') >= 120) {
+                model.set('rank', 1000 - model.get('failure_percent'));
+            } else {
+                model.set('rank', model.get('average_returns') );
+            }
+        });
+    },
+
+    rankRuns: function () {
+        this.removePastLimit();
+        // this.oldRank();
+
+        this.newRank();
     },
 
    fetch: function (opts) {
