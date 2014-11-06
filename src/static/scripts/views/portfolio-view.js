@@ -97,5 +97,45 @@ module.exports = BaseView.extend({
         this.draggables = this.$('.draggable').multiDraggable();
 
         this.renderCharts();
+
+        this.prepareTour();
+    },
+
+    prepareTour: function () {
+        var $barSlider = $('.bar-slider');
+        var barTop = $barSlider.offset().top;
+        var barHeight = $barSlider.height();
+        if ( (barTop + barHeight) < window.innerHeight ) {
+            this.startTour();
+        } else {
+            var started = false;
+            var that = this;
+            window.onscroll = function () {
+                if ( !started && (window.scrollY + window.innerHeight) > ( barTop  + barHeight )) {
+                    started = true;
+                    that.startTour();
+                }
+            }
+        }
+    },
+
+    startTour: function () {
+        var tour = new Tour({
+            steps: [
+                {
+                element: "i.dragger:first",
+                title: "Title of my step",
+                content: "Drag the handles to change the proportions"
+                }
+            ],
+            duration: 4000,
+            autoscroll: false
+        });
+
+        // Initialize the tour
+        tour.init();
+
+        // Start the tour
+        tour.start();
     }
 });
