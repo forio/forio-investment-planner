@@ -6,51 +6,59 @@
     }
 
     .instructions {
+        height: 100%;
         margin-top: 20px;
+        position: relative;
+
+        div {
+            height: 100%;
+        }
 
         .instruction-text {
             background-color: transparent;
             color: @gray;
+            max-width: 250px;
             padding: 8px;
             position: relative;
             width: 100%;
+            @media only screen and (max-width: 1100px) {
+                top: 5%;
+            }
+            @media only screen and (min-width: 1101px) {
+                top: 10%;
+            }
+
 
             &:before {
                 content: '';
-                width: 15%;
-                height: 1px;
-                background-color: @highlight-color;
                 position: absolute;
-                top: 50%;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                top: 40%;
             }
 
             &.left {
                 border-right: 1px solid @highlight-color;
+                float: right;
 
                 &:before {
-                    right: -15%;
+                    right: -10px;
+                    border-width: 10px 0 10px 10px;
+                    border-color: transparent transparent transparent @highlight-color;
                 }
             }
 
             &.right {
                 border-left: 1px solid @highlight-color;
+                float: left;
 
                 &:before {
-                    left: -15%;
+                    left: -10px;
+                    border-width: 10px 10px 10px 0;
+                    border-color: transparent @highlight-color transparent transparent;
                 }
             }
-        }
-
-        #outcome {
-            top: 70px;
-        }
-
-        #entry {
-            top: 200px;
-        }
-
-        #historical {
-            top: 20px;
         }
     }
 }
