@@ -1,6 +1,7 @@
 
 html, body {
     height: 100%;
+    -webkit-font-smoothing: antialiased !important;
 }
 
 a {
@@ -21,33 +22,8 @@ body {
     stroke-width: 0.5px;
 }
 
-
-.btn {
-    padding-bottom: 1px;
-    padding-top: 1px;
-}
-
-.btn-info {
-    color: black;
-    background-color: rgb(244, 248, 249);
-    border-bottom: outset;
-    padding-bottom: 3px;
-}
-
 #content {
     background-color: @right-background;
-}
-
-.leaders-table .row {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    margin-left: -15px;
-    margin-right: -15px;
-}
-
-.selected {
-    background-color: @left-background;
-    color: white;
 }
 
 .header-title {
@@ -61,34 +37,87 @@ body {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background-color: #000;
+    background-color: @what-we-used-background;
     z-index: 1000;
-    opacity: 0.2;
+    opacity: 0;
+    transition: opacity 0.5s;
 
     &.show1 {
         display: block;
+    }
+    &.show2 {
+        opacity: 0.7;
     }
 }
 
 #loading-indicator {
     display: none;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    text-align: right;
-    width: 250px;
-    margin-left: -100px;
-    margin-top: -50px;
-    background: #444;
+    top: 140px;
+    width: 70%;
+    margin-left: 15%;
+    background: transparent;
     border-radius: 4px;
     padding: 10px 15px;
     font-size: 1.3em;
+    text-align: center;
     font-weight: bold;
-    color: #FFF;
+    color: @body-bg;
     z-index: 2000;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.title-group {
+    min-height: 110px;
+
+    h4 {
+        bottom: 8px;
+        position: absolute;
+    }
+}
+
+.spinner {
+    width: 100px;
+    height: 100px;
+
+    position: relative;
+    margin: 0px auto 20px;
+
+    .double-bounce1, .double-bounce2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: @body-bg;
+        opacity: 0.4;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        -webkit-animation: bounce 3.0s infinite ease-in-out;
+        animation: bounce 2.0s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+        -webkit-animation-delay: -1.0s;
+        animation-delay: -1.0s;
+    }
+
+    @-webkit-keyframes bounce {
+        0%, 100% { -webkit-transform: scale(0.0) }
+        50% { -webkit-transform: scale(1.0) }
+    }
+
+    @keyframes bounce {
+        0%, 100% {
+            transform: scale(0.0);
+            -webkit-transform: scale(0.0);
+        } 50% {
+            transform: scale(1.0);
+            -webkit-transform: scale(1.0);
+        }
+    }
 }
 
 .contour-chart .axis text {

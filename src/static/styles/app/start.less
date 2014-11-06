@@ -1,0 +1,115 @@
+@pointer-width: 100px;
+
+.welcome {
+    h1 {
+        border-bottom: 1px solid @what-we-used-background;
+    }
+
+    .instructions {
+        height: 100%;
+        margin-top: 20px;
+        position: relative;
+
+        div {
+            height: 100%;
+        }
+
+        .instruction-text {
+            background-color: transparent;
+            color: @gray;
+            max-width: 250px;
+            padding: 8px;
+            position: relative;
+            width: 100%;
+            @media only screen and (max-width: 1100px) {
+                top: 5%;
+            }
+            @media only screen and (min-width: 1101px) {
+                top: 10%;
+            }
+
+
+            &:before {
+                content: '';
+                position: absolute;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                top: 40%;
+            }
+
+            &.left {
+                border-right: 1px solid @highlight-color;
+                float: right;
+
+                &:before {
+                    right: -10px;
+                    border-width: 10px 0 10px 10px;
+                    border-color: transparent transparent transparent @highlight-color;
+                }
+            }
+
+            &.right {
+                border-left: 1px solid @highlight-color;
+                float: left;
+
+                &:before {
+                    left: -10px;
+                    border-width: 10px 10px 10px 0;
+                    border-color: transparent @highlight-color transparent transparent;
+                }
+            }
+        }
+    }
+}
+
+.start-sim {
+    background-color: @what-we-used-background;
+    height: 140px;
+}
+
+#start-container {
+
+    #start_button {
+        display: block;
+        margin: 30px auto 0px;
+        height: 80px;
+        width: 60%;
+        border-radius: 8px;
+        z-index: 1100;
+
+        &[disabled] {
+            display: none;
+            z-index: 900;
+        }
+
+        &:hover {
+            margin-top: 33px;
+        }
+    }
+}
+
+#loading-container {
+    background-color: @what-we-used-background;
+    position: absolute;
+    width: 100%;
+    opacity: 1;
+    z-index: 1000;
+    transition: opacity 300ms;
+
+    &.done {
+        opacity: 0;
+    }
+
+    .spinner {
+        width: 60px;
+        height: 60px;
+        position: relative;
+        margin: 0px auto;
+        }
+
+    h2 {
+        text-align: center;
+        color: @body-bg;
+    }
+}

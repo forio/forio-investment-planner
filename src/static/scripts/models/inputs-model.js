@@ -31,7 +31,7 @@ module.exports = BaseModel.extend({
                 variable: 'bonds'
             },
             {
-                name: 'Global Reas Estate',
+                name: 'Global Real Estate',
                 value: this.get('realEstate'),
                 variable: 'realEstate'
             },

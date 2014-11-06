@@ -16,6 +16,8 @@ module.exports = function (data) {
     var min = +_.min(lasts).toFixed();
     var max = +_.max(lasts).toFixed();
 
+    var highlighted;
+
     var forcast = new Contour({
         el: '.return-forcast',
         chart: {
@@ -57,12 +59,30 @@ module.exports = function (data) {
             marker: {
                 enable: false
             }
+        },
+        tooltip: {
+            formatter: function (v) { 
+                $('g[vis-id="2"] .series').css('opacity', 0.1);
+                highlighted = $('.series.'+ v.series.split(' ').pop());
+                highlighted.css('opacity', 0.9);
+                var cagr = Math.pow( (100 / v.y), (1 / v.x) ) - 1;
+                var text = '<p>Year ' + v.x + ' Value: $' + d3.format('.2f')(v.y) + '</p>';
+                text = text + '<p>Compound Annual Growth Rate (CAGR): ' + d3.format('%.2f')(cagr) + '</p>';
+                return text; 
+            },
+            hideTime: function () {
+                $('g[vis-id="2"] .series').css('opacity', 0.4);
+                return true;
+            }
         }
+
     })
     .cartesian();
 
-    forcast.line(data);
     forcast.line(avg);
+
+    forcast.line(data);
+    forcast.tooltip();
 
     forcast.render();
 };

@@ -23,8 +23,14 @@ var templates = require('templates')(Handlebars);
 
 var whatTemplate = templates['what-we-used'];
 
+var startTemplate = templates['start'];
+
+var ScenarioModel = require('models/scenario-model');
+
 App.prototype = _.extend(ContourBaseApp.prototype, {
     initialize: function () {
+
+        $('#content').html(startTemplate());
 
         $('#what-we-used').html(whatTemplate(whatData));
         $('#content').addClass('loading');
@@ -32,30 +38,48 @@ App.prototype = _.extend(ContourBaseApp.prototype, {
         this.scenarios = new HistoricalCollection();
         var that = this;
 
-        this.showLoading();
+        $('#start_button').on('click', function () {
+            that.router = new MainRouter({});
+        });
+
+        var ready = _.after(2, function () {
+            //$('#loading-container').hide(300);
+            $('#loading-container').addClass('done');
+            $('#start_button').removeAttr('disabled');
+            setTimeout( function () {
+                $('#loading-container').hide(0);
+                $('#loading-container').removeClass('done');
+            }, 200)
+        });
+
+        this.scenario = new ScenarioModel();
+        this.scenario.runReady({
+            success: ready
+        });
+
+        // this.showLoading();
         this.scenarios.fetch({
-            success: function () {
-                that.router = new MainRouter({});
-            }
+            success: ready
         });
     },
 
     showLoading: function (msg) {
         msg = '<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div><h1>Loading Simulation</h4>';
 
-        msg = 'Loading Simulation';
+        //msg = 'Loading Simulation';
         $('#loading-indicator').html(msg);
         // animate in the loading indicator
         $('#loading-indicator').show(100);
         // set display:block on the backdrop
         $('#loading-backdrop').addClass('show1');
+        $('#loading-backdrop').addClass('show2');
         var that = this;
         // animate in the backdrop
-        setTimeout(function () {
-            setTimeout( function () {
-                that.spinner('loading-indicator');
-            }, 120)
-        }, 1);
+        // setTimeout(function () {
+        //     setTimeout( function () {
+        //         that.spinner('loading-indicator');
+        //     }, 120)
+        // }, 1);
     },
 
     spinner: function (id) {

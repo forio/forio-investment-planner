@@ -1,11 +1,11 @@
-<div class="row {{#if selected}}selected{{/if}}" data-cid="{{cid}}">
-    <div class="col-xs-6 name">
+<div class="row {{#if selected}}selected{{/if}} entry" data-cid="{{cid}}">
+    <div class="col-xs-5 name">
         {{name}}
     </div>
-    <div class="col-xs-3 chance-of-loss">
+    <div class="col-xs-3 chance-of-loss text-right number">
         {{formatPercent failure_percent}}
     </div>
-    <div class="col-xs-3 average-after-five">
+    <div class="col-xs-3 average-after-five text-right number">
         {{formatCurrency average_returns}}
     </div>
 </div>

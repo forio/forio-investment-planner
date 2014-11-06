@@ -13,6 +13,8 @@ module.exports = BaseView.extend({
     replayTemplate: templates['replay'],
 
     initialize: function (opts) {
+        $('#content').addClass('leaderboard');
+
         this.model = opts.model || App.scenarios.at(0);
 
         App.scenarios.setSelected(this.model);

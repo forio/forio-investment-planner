@@ -20,12 +20,12 @@ module.exports = RouterBase.extend({
     invest: function () {
         var that = this;
         
-        this.scenario = new ScenarioModel();
-        this.scenario.runReady({
+        App.scenario = new ScenarioModel();
+        App.scenario.runReady({
             success: function () {
                 App.hideLoading();
                 that.showView(new InvestView({
-                    model: that.scenario
+                    model: App.scenario
                 }));
             }
         });

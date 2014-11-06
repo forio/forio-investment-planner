@@ -50,7 +50,7 @@ module.exports = BaseModel.extend({
                 variable: 'global_bonds'
             },
             {
-                name: 'Global Reas Estate',
+                name: 'Global Real Estate',
                 value: this.get('global_real_estate'),
                 variable: 'global_real_estate'
             },
@@ -79,12 +79,16 @@ module.exports = BaseModel.extend({
 
     getReturns: function (callBack) {
         var that = this;
-        Net.get( this.run.id + '/variables', 'include=portfolio.returns', { 
+        Net.get( this.run.id + '/variables', 'include=portfolio.returns', {
             success: function (data) {
                 that.transformSet(data);
                 that.calculateSpread();
                 callBack()
-            } 
+            },
+            error:function () {
+                App.scenarios.remove(that);
+                callBack();
+            }
         });
     },
 
@@ -140,21 +144,29 @@ module.exports = BaseModel.extend({
 
     getProportions: function (callBack) {
         var that = this;
-        Net.get( this.run.id + '/variables', 'include=' + _.map(this.proportions, function(item){ return 'portfolio.' + item;}).join(','), { 
+        Net.get( this.run.id + '/variables', 'include=' + _.map(this.proportions, function(item){ return 'portfolio.' + item;}).join(','), {
             success: function (data) {
                 that.transformSet(data);
                 callBack()
-            } 
+            },
+            error:function () {
+                App.scenarios.remove(that);
+                callBack();
+            }
         });
     },
 
     getHistorics: function (callBack) {
         var that = this;
-        Net.get( this.run.id + '/variables', 'include=portfolio.historic,portfolio.correlation', { 
+        Net.get( this.run.id + '/variables', 'include=portfolio.historic,portfolio.correlation', {
             success: function (data) {
                 that.transformSet(data);
                 callBack()
-            } 
+            },
+            error:function () {
+                App.scenarios.remove(that);
+                callBack();
+            }
         });
     },
 
@@ -206,11 +218,15 @@ module.exports = BaseModel.extend({
 
     getScoreMetrics: function (callBack) {
         var that = this;
-        Net.get( this.run.id + '/variables', 'include=portfolio.average_returns,portfolio.failure_percent', { 
+        Net.get( this.run.id + '/variables', 'include=portfolio.average_returns,portfolio.failure_percent', {
             success: function (data) {
                 that.transformSet(data);
                 callBack()
-            } 
+            },
+            error:function () {
+                App.scenarios.remove(that);
+                callBack();
+            }
         });
     },
 

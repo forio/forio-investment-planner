@@ -1,0 +1,68 @@
+.leaderboard {
+
+    .left,
+    .right {
+        min-height: 760px;
+    }
+
+    .left {
+        hr {
+            margin: 0;
+        }
+    }
+}
+
+
+.leaders-table {
+
+    .header {
+        color: @gray-dark;
+        font-weight: bold;
+
+        >div {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    }
+
+    .chance-of-loss {
+        border-right: 1px solid @gray-light;
+    }
+
+    .entry {
+        background-color: transparent;
+        cursor: pointer;
+        transition: background-color 200ms;
+
+        &:hover {
+            background-color: @gray-light;
+        }
+
+        >div {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .name {
+
+        }
+
+        .chance-of-loss {
+
+        }
+
+        .average-after-five {
+
+        }
+    }
+
+    .selected {
+        background-color: @left-background;
+        cursor: default;
+        color: @body-bg;
+
+        &:hover {
+            background-color: @left-background !important;
+        }
+    }
+}
