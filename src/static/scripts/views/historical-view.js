@@ -40,12 +40,11 @@ module.exports = BaseView.extend({
             }, 0) / historicalValues.length;
             historicalData.push({
                 name: label,
-                historicalValues: historicalValues,
                 average: average
             })
         }, this);
 
-        return historicalData;
+        return this.model.buildHistogram(historicalData);
     },
 
     afterRender: function () {
@@ -53,7 +52,7 @@ module.exports = BaseView.extend({
         var $bar;
         _.each(this.$('.history-bar'), function (bar, index) {
             $bar = $(bar);
-            this.renderHistoryBars($bar.data('name'), this.historicalData()[index].historicalValues)
+            this.renderHistoryBars($bar.data('name'), this.historicalData()[index].histogram)
         }, this);
 
         var $plot;
@@ -117,5 +116,11 @@ module.exports = BaseView.extend({
             .cartesian()
             .column(values)
             .render();
-    }
+    },
+
+    // historicalHistogram: function () {
+    //     var historics = this.
+    //     for ( var i = 0, l = )
+    //     d3.layout.histogram().bins(8)(
+    // }
 });

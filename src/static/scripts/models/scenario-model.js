@@ -285,5 +285,22 @@ module.exports = BaseModel.extend({
 
             callBack();
         }
+    },
+
+    buildHistogram: function (historicData) {
+        var historics = this.get('historic');
+        var outcomes = [];
+        for ( var i = 0, l = historics[0].length; i < l; i++) {
+            outcomes = _.map(historics, function (iteration) {
+                return iteration[i];
+            });
+
+
+            historicData[i].histogram = _.map(d3.layout.histogram().bins(5)(outcomes), function (gram) {
+                return gram.length;
+            });;
+        }
+
+        return historicData;
     }
 });
