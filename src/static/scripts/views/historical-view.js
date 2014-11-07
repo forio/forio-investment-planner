@@ -34,8 +34,9 @@ module.exports = BaseView.extend({
         var historicalValues;
         var average;
         _.each(this.model.inputLabels, function (label, index) {
-            historicalValues = this.model.get('historic')[index];
-            average = _.reduce( historicalValues, function ( memo, num) { 
+            historicalValues = _.pluck(this.model.get('historic'), index);
+            console.log(historicalValues);
+            average = _.reduce( historicalValues, function ( memo, num) {
                 return memo + num;
             }, 0) / historicalValues.length;
             historicalData.push({
