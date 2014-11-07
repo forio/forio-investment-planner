@@ -22,6 +22,6 @@ module.exports = [
     {
         name: 'SIP math – Unambiguous communication of uncertainties through data arrays',
         imgUrl: 'images/pmsquare.png',
-        link: 'http://www.http://probabilitymanagement.org/sip-math.html'
+        link: 'http://www.probabilitymanagement.org/sip-math.html'
     }
 ]
