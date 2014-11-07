@@ -20,6 +20,7 @@
             max-width: 250px;
             padding: 8px;
             position: relative;
+            height: 80px;
             width: 100%;
 
             &:before {
@@ -28,7 +29,6 @@
                 width: 0;
                 height: 0;
                 border-style: solid;
-                top: 40%;
             }
 
             &.left {
@@ -57,19 +57,25 @@
 }
 
 #entry {
-    bottom: 0;
-    height: 120px;
+    bottom: 20px;
     left: -250px;
     position: absolute;
     vertical-align: bottom;
+
+    &:before {
+        top: 60%;
+    }
 }
 
 #historical {
     top: 40px;
-    height: 80px;
     right: -250px;
     position: absolute;
     vertical-align: bottom;
+
+    &:before {
+        top: 20%;
+    }
 }
 
 .start-sim {
