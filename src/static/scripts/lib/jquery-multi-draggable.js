@@ -25,6 +25,11 @@
             opt.newValue = 0;
         }
 
+        if (opt.newNeighborValue < 0) {
+            opt.newValue += opt.newNeighborValue;
+            opt.newNeighborValue = 0;
+        }
+
         opt.item.data('value', opt.newValue);
         opt.neighbor.data('value', opt.newNeighborValue );
         opt.item.trigger('slideUpdate');
