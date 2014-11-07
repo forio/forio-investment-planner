@@ -65,7 +65,7 @@ module.exports = function (data) {
                 $('g[vis-id="2"] .series').css('opacity', 0.1);
                 highlighted = $('.series.'+ v.series.split(' ').pop());
                 highlighted.css('opacity', 0.9);
-                var cagr = Math.pow( (100 / v.y), (1 / v.x) ) - 1;
+                var cagr = Math.pow( (v.y / 100), (1 / v.x) ) - 1;
                 var text = '<p>Year ' + v.x + ' Value: $' + d3.format('.2f')(v.y) + '</p>';
                 text = text + '<p>Compound Annual Growth Rate (CAGR): ' + d3.format('%.2f')(cagr) + '</p>';
                 return text; 
