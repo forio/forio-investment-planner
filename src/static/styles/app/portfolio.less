@@ -14,11 +14,13 @@
         width: 90%;
         padding: 5px 10px;
         border: none;
-        border: 1px solid transparent;
         box-shadow: inset 0px 0px 8px @left-background;
+
 
         &:focus {
             outline: none;
+            padding-bottom: 4px;
+            padding-right: 9px;
         }
     }
 
@@ -26,45 +28,45 @@
         border-top: 3px solid @us-color;
 
         &:focus {
-            border-top: 6px solid @us-color;
+            border: 1px solid;
+            border-top: 3px solid;
             border-color: @us-color;
-            padding-top: 2px
         }
     }
     input[data-variable="emerging_markets"] {
         border-top: 3px solid @emerging-color;
 
         &:focus {
-            border-top: 6px solid @emerging-color;
+            border: 1px solid;
+            border-top: 3px solid;
             border-color: @emerging-color;
-            padding-top: 2px
         }
     }
     input[data-variable="global_bonds"] {
         border-top: 3px solid @bonds-color;
 
         &:focus {
-            border-top: 6px solid @bonds-color;
+            border: 1px solid;
+            border-top: 3px solid;
             border-color: @bonds-color;
-            padding-top: 2px
         }
     }
     input[data-variable="global_real_estate"] {
         border-top: 3px solid @real-estate-color;
 
         &:focus {
-            border-top: 6px solid @real-estate-color;
+            border: 1px solid;
+            border-top: 3px solid;
             border-color: @real-estate-color;
-            padding-top: 2px
         }
     }
     input[data-variable="cash_equivalents"] {
         border-top: 3px solid @cash-color;
 
         &:focus {
-            border-top: 6px solid @cash-color;
+            border: 1px solid;
+            border-top: 3px solid;
             border-color: @cash-color;
-            padding-top: 2px
         }
     }
 }
