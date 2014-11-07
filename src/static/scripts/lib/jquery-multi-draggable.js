@@ -19,6 +19,30 @@
         return $item.next();
     }
 
+    var normalizeCash = function () {
+        var total = 1.00;
+        var cashVar = 'cash_equivalents';
+
+        var $item;
+        var val;
+        var roundedVal;
+        _.each($('.draggable'), function (item) {
+            $item = $(item);
+            if ($item.data('variable') === cashVar) {
+                return;
+            }
+            val = +$item.data('value');
+            roundedVal = +val.toFixed(3);
+            total -= roundedVal;
+
+            $item.data('value', roundedVal);
+        });
+
+        var $cashItem = $('.draggable[data-variable="' + cashVar + '"]');
+
+        $cashItem.data('value', total);
+    }
+
     var normalize = function  (opt) {
         if (opt.newValue < 0.01) {
             opt.newNeighborValue += opt.newValue;
@@ -32,6 +56,8 @@
 
         opt.item.data('value', opt.newValue);
         opt.neighbor.data('value', opt.newNeighborValue );
+
+        normalizeCash();
         opt.item.trigger('slideUpdate');
     }
 
