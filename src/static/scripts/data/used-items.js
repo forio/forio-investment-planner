@@ -1,17 +1,27 @@
 module.exports = [
     {
-        name: 'Forio Epicenter',
+        name: 'Forio Epicenter – Server-side model hosting and interface API',
         imgUrl: 'images/epicenter-logo.svg',
         link: 'http://forio.com'
     },
     {
-        name: 'Forio Contour',
+        name: 'Forio Contour – Interactive JavaScript charts for data visualization',
         imgUrl: 'images/contour-logo.svg',
         link: 'http://forio.com/contour/'
     },
     {
-        name: 'Python',
+        name: 'Python – General purpose, high-level programming, and dynamically-typed language',
         imgUrl: 'images/python.png',
         link: 'https://www.python.org/'
+    },
+    {
+        name: 'Numpy – The fundamental package for scientific computing with Python.',
+        imgUrl: 'images/numpy_logo.png',
+        link: 'http://www.numpy.org/'
+    },
+    {
+        name: 'SIP math – Unambiguous communication of uncertainties through data arrays',
+        imgUrl: 'images/pmsquare.png',
+        link: 'http://www.http://probabilitymanagement.org/sip-math.html'
     }
 ]
