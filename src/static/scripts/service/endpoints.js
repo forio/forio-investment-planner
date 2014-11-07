@@ -1,7 +1,7 @@
 var parts = window.location.pathname.split('/');
 
 var curAccount = 'showcase';
-var curProject = 'forio-investment-planner';
+var curProject = 'investment-portfolio-stock-market-simulation';
 var model = 'portfolio.py';
 var proto = /http(s)?/.test(window.location.protocol) ? window.location.protocol : 'https:';
 proto = 'https:';
