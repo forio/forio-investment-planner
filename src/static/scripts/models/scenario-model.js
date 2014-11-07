@@ -254,8 +254,9 @@ module.exports = BaseModel.extend({
     setNewProportion: function (variable, newVal, callBack) {
         var currentVal = this.get(variable);
         if ( currentVal > newVal ) {
-            var cashVal = this.get('cash_equivalents');
-            this.set('cash_equivalents', cashVal + currentVal - newVal);
+            var addToVar = variable === 'cash_equivalents' ? 'global_real_estate' : 'cash_equivalents';
+            var addToVal = this.get(addToVar);
+            this.set(addToVar, addToVal + currentVal - newVal);
             this.set(variable, newVal);
             callBack();
         } else {
