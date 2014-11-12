@@ -2,6 +2,7 @@
     'use strict';
 
     var totalWidth;
+    var draggables;
 
     var addIcon = function ($item) {
         var $icon = $('<i>').addClass('dragger');
@@ -10,101 +11,91 @@
         return $icon;
     }
 
-    var getNeigbor = function ($item) {
+    var getNeigbor = function ($item, give) {
+        var dr = draggables.get().reverse();
+        var $next = $item.next();
         var $cash = $('.draggable').last();
-
-        if ($cash.width() > 2) {
+        if (give || $cash.data('value')) {
             return $cash;
-        }
-        return $item.next();
-    }
-
-    var normalizeCash = function () {
-        var total = 1.00;
-        var cashVar = 'cash_equivalents';
-
-        var $item;
-        var val;
-        var roundedVal;
-        _.each($('.draggable'), function (item) {
-            $item = $(item);
-            if ($item.data('variable') === cashVar) {
-                return;
+        } else {
+            while ($next.data('variable') !== $cash.data('variable')) {
+                if ($next.data('value')) {
+                    return $next;
+                }
+                $next = $next.next();
             }
-            val = +$item.data('value');
-            roundedVal = +val.toFixed(3);
-            total -= roundedVal;
-
-            $item.data('value', roundedVal);
-        });
-
-        var $cashItem = $('.draggable[data-variable="' + cashVar + '"]');
-
-        $cashItem.data('value', total);
-    }
-
-    var normalize = function  (opt) {
-        if (opt.newValue < 0.01) {
-            opt.newNeighborValue += opt.newValue;
-            opt.newValue = 0;
         }
 
-        if (opt.newNeighborValue < 0) {
-            opt.newValue += opt.newNeighborValue;
-            opt.newNeighborValue = 0;
+        return $next;
+    }
+
+    var normalize = function  ($item, $neighbor, valueChange) {
+        var newValue = $item.data('value') + valueChange;
+        newValue = newValue < 0 ? 0 : newValue;
+        var neighborValue = $neighbor.data('value');
+        if (newValue < 0.001) {
+            $neighbor.data('value', neighborValue + newValue);
+            $item.data('value', 0);
+        } else if (neighborValue - valueChange < 0) {
+            $neighbor.data('value', 0);
+        } else {
+            $neighbor.data('value', neighborValue - valueChange);
+            $item.data('value', newValue);
         }
 
-        opt.item.data('value', opt.newValue);
-        opt.neighbor.data('value', opt.newNeighborValue );
+        setWidth($item);
+        setWidth($neighbor);
+        $item.trigger('slideUpdate');
+    };
 
-        normalizeCash();
-        opt.item.trigger('slideUpdate');
-    }
+    var setWidth = function ($item) {
+        var width = +$item.data('value') * totalWidth;
+        $item.width(width);
+    };
 
     $.fn.multiDraggable = function () {
 
         var that = this;
 
+        draggables = $('.draggable');
+
         var widthSet = _.after(this.length, function () {
 
-            that.each( function () {
-
-                var $item = $(this);
-
-                var $icon =  addIcon($item);
+            that.each( function (idx, item) {
+                var $this = $(item)
+                var $icon =  addIcon($this);
 
                 var currentX;
+                var minX;
+                var $neighbor;
+                var maxX;
+
+                var setup = function (e, give) {
+                    minX = $this.offset().left;
+
+                    $neighbor = $(getNeigbor($this, give));
+                    if (!$neighbor.data('value') && !give) {
+                        $(document).off('mousemove');
+                    }
+                    console.log($neighbor.data('variable'));
+                    maxX = $neighbor.width() + $this.offset().left + $this.width();
+                    currentX = e.pageX;
+                };
 
                 $icon.on('mousedown', function (e) {
-                    var minX = $item.offset().left;
 
-                    var $neighbor = getNeigbor($item);
-                    if ($neighbor.length) {
-                        var maxX = $neighbor.width() + $item.offset().left + $item.width();
-                    } 
-                    currentX = e.pageX;
+                    setup(e, false);
 
-                    var neighborWidth = $neighbor.width();
-
-                    var newWidth;
-                    var newValue;
-                    var newValueAdjust;
-                    var newNeighborValue;
-                    var newNeighborWidth;
-                    $(document).on('mousemove', function (e) {
-                        if (e.pageX < maxX && e.pageX > minX) {
-                            newWidth = e.pageX - minX;
-                            $item.width(newWidth);
-                            newNeighborWidth = neighborWidth - ( e.pageX - currentX );
-                            $neighbor.width(newNeighborWidth);
-                            newValue = newWidth / totalWidth;
-                            newNeighborValue = newNeighborWidth / totalWidth;
-                            normalize({
-                                newValue: newValue, 
-                                newNeighborValue: newNeighborValue,
-                                item: $item,
-                                neighbor: $neighbor
-                            });
+                    var valueChange;
+                    $(document).on('mousemove', function (f) {
+                        valueChange = (f.pageX - currentX) / totalWidth;
+                        if (f.pageX < maxX && f.pageX > minX) {
+                            valueChange = (f.pageX - currentX) / totalWidth;
+                            currentX = f.pageX;
+                            normalize($this, $neighbor, valueChange);
+                        } else {
+                            console.log('setup');
+                            setup(f, valueChange < 0);
                         }
                     });
 
@@ -118,15 +109,9 @@
 
 
         }, this);
-
+        totalWidth = $('.bar-slider').parent().width() - 130;
         return this.each(function () {
-
-            var $item = $(this);
-            totalWidth = $item.parent().width();
-
-            var width = +$item.data('value') * totalWidth;
-
-            $item.width(width);
+            setWidth($(this));
 
             widthSet();
         });
