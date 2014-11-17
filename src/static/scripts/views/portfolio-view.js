@@ -49,6 +49,7 @@ module.exports = BaseView.extend({
     updateFromInput: function (e) {
         var $input = $(e.currentTarget);
         var newVal = +$input.val().replace('%','') / 100;
+        newVal = newVal < 0 ? 0 : newVal;
         var that = this;
         this.model.setNewProportion($input.data('variable'), newVal, function () {
             that.model.recalculate(function () {
