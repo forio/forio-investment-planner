@@ -109,7 +109,7 @@
 
 
         }, this);
-        totalWidth = $('.bar-slider').parent().width() - 130;
+        totalWidth = $('.bar-slider').width();
         return this.each(function () {
             setWidth($(this));
 
