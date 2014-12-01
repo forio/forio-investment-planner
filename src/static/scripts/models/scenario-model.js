@@ -253,39 +253,25 @@ module.exports = BaseModel.extend({
 
     setNewProportion: function (variable, newVal, callBack) {
         var currentVal = this.get(variable);
-        if ( currentVal > newVal ) {
-            var addToVar = variable === 'cash_equivalents' ? 'global_real_estate' : 'cash_equivalents';
-            var addToVal = this.get(addToVar);
-            this.set(addToVar, addToVal + currentVal - newVal);
-            this.set(variable, newVal);
-            callBack();
-        } else {
-            newVal = newVal > 1 ? 1.00 : newVal;
 
-            var need = newVal - currentVal;
+        newVal = newVal > 1 ? 1.00 : newVal;
+        var delta = (newVal - currentVal);
 
-            var proportions = this.proportions.slice();
-            var curIndex = proportions.indexOf(variable);
-            proportions.splice(curIndex, 1);
 
-            var curProportion;
-            var curVal;
-            while (need && proportions.length) {
-                curProportion = proportions.pop();
-                curVal = this.get(curProportion)
-                if (curVal >= need )  {
-                    this.set(curProportion, curVal - need);
-                    need = false;
-                } else {
-                    need = need - curVal;
-                    this.set(curProportion, 0);
-                }
+        var val;
+        var withOutVar;
+        _.each(this.proportions, function (proportionVar) {
+            if (proportionVar !== variable) {
+                val = this.get(proportionVar);
+                withOutVar = val / (1.0 - currentVal);
+                val -= withOutVar * delta;   
+                this.set(proportionVar, val);
+            } else {
+                this.set(variable, newVal);
             }
+        }, this);
 
-            this.set(variable, newVal);
-
-            callBack();
-        }
+        callBack();
     },
 
     buildHistogram: function (historicData) {
