@@ -62,7 +62,7 @@ module.exports = BaseCollection.extend({
 
     newRank: function () {
         _.each(this.models, function (model) {
-            if (model.get('average_returns') >= 120) {
+            if (+d3.format('$.2f')(model.get('average_returns')).replace('$','') >= 120) {
                 model.set('rank', 1000 - model.get('failure_percent'));
             } else {
                 model.set('rank', model.get('average_returns') );
