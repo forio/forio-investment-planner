@@ -23,5 +23,10 @@ module.exports = [
         name: 'SIP math – Unambiguous communication of uncertainties through data arrays',
         imgUrl: 'images/pmsquare.png',
         link: 'http://www.probabilitymanagement.org/sip-math.html'
+    },
+    {
+        name: 'Morningstar — Leading provider of independent investment research to the list of stack components',
+        imgUrl: 'images/morningstar.png',
+        link: 'http://corporate.morningstar.com'
     }
 ]
